@@ -401,6 +401,10 @@
           <input type="email" id="email" name="email" autocomplete="email" placeholder="you@yourcompany.com">
           <span class="err">We need somewhere to send the read.</span>
         </div>
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+          <label for="company_url">Leave this blank</label>
+          <input type="text" id="company_url" name="company_url" tabindex="-1" autocomplete="off">
+        </div>
         <div class="field wide">
           <label for="worst">What was your worst month this year, and what do you think caused it? <span class="opt">(optional, and the most useful box on this page)</span></label>
           <textarea id="worst" name="worst" placeholder="August. I think the leads got worse."></textarea>
@@ -468,7 +472,7 @@
                      form still works, storing locally as a backstop.
      CALENDAR_URL  : booking link shown after submit. Leave "" to hide.
   ------------------------------------------------------------------ */
-  var FORM_ENDPOINT = "";
+  var FORM_ENDPOINT = "https://services.leadconnectorhq.com/hooks/8ouud4VJeoR3laAPx37C/webhook-trigger/72683afd-9b97-4e58-880f-d416ec0d7819";
   var CALENDAR_URL  = "";
 
   var CHECKS = {
@@ -675,13 +679,29 @@
       d.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
     }
 
+    if ($("company_url") && $("company_url").value){ finish(); return; }   // bot
+
     if (!FORM_ENDPOINT){
       console.warn("BizVeris: FORM_ENDPOINT is not set. Request stored in localStorage only.");
       finish(); return;
     }
+    var body = JSON.stringify(payload);
+    // Preferred path. If the endpoint refuses the preflight, retry opaque with a
+    // simple content type, which still delivers the body even though we cannot
+    // read the response.
     fetch(FORM_ENDPOINT, {
-      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)
-    }).then(finish).catch(function(){ finish(); });
+      method:"POST", headers:{"Content-Type":"application/json"}, body:body
+    }).then(function(r){
+      if (!r.ok) throw new Error("http " + r.status);
+      finish();
+    }).catch(function(){
+      fetch(FORM_ENDPOINT, {
+        method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain"}, body:body
+      }).then(function(){ finish(); }).catch(function(){
+        console.error("BizVeris: submission could not be delivered. Kept in localStorage.");
+        finish();
+      });
+    });
   });
 })();
 </script>
