@@ -466,14 +466,16 @@
   "use strict";
 
   /* ------------------------------------------------------------------
-     CONFIGURE THESE TWO BEFORE LAUNCH
-     FORM_ENDPOINT : a URL that accepts a POST of JSON (form handler,
-                     webhook, or a Worker function). Leave "" and the
-                     form still works, storing locally as a backstop.
-     CALENDAR_URL  : booking link shown after submit. Leave "" to hide.
+     FORM_ENDPOINT  : GHL inbound webhook. Puts the person in the CRM so
+                      they can be worked whatever happens downstream.
+     AUDIT_ENDPOINT : the engine. Runs the checks and emails the report.
+     Both fire, neither waits on the other, and the form completes even
+     if both are down, because a lost request is worse than a slow one.
+     CALENDAR_URL   : booking link shown after submit. Leave "" to hide.
   ------------------------------------------------------------------ */
-  var FORM_ENDPOINT = "https://services.leadconnectorhq.com/hooks/8ouud4VJeoR3laAPx37C/webhook-trigger/72683afd-9b97-4e58-880f-d416ec0d7819";
-  var CALENDAR_URL  = "";
+  var FORM_ENDPOINT  = "https://services.leadconnectorhq.com/hooks/8ouud4VJeoR3laAPx37C/webhook-trigger/72683afd-9b97-4e58-880f-d416ec0d7819";
+  var AUDIT_ENDPOINT = "https://bizveris-audit-production.up.railway.app/audit-request";
+  var CALENDAR_URL   = "";
 
   var CHECKS = {
     base: ["Public information", [
@@ -681,26 +683,33 @@
 
     if ($("company_url") && $("company_url").value){ finish(); return; }   // bot
 
-    if (!FORM_ENDPOINT){
-      console.warn("BizVeris: FORM_ENDPOINT is not set. Request stored in localStorage only.");
-      finish(); return;
-    }
     var body = JSON.stringify(payload);
-    // Preferred path. If the endpoint refuses the preflight, retry opaque with a
+
+    // Deliver to one endpoint. If it refuses the preflight, retry opaque with a
     // simple content type, which still delivers the body even though we cannot
     // read the response.
-    fetch(FORM_ENDPOINT, {
-      method:"POST", headers:{"Content-Type":"application/json"}, body:body
-    }).then(function(r){
-      if (!r.ok) throw new Error("http " + r.status);
-      finish();
-    }).catch(function(){
-      fetch(FORM_ENDPOINT, {
-        method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain"}, body:body
-      }).then(function(){ finish(); }).catch(function(){
-        console.error("BizVeris: submission could not be delivered. Kept in localStorage.");
-        finish();
+    function deliver(url){
+      if (!url) return Promise.reject(new Error("no endpoint"));
+      return fetch(url, {
+        method:"POST", headers:{"Content-Type":"application/json"}, body:body
+      }).then(function(r){
+        if (!r.ok) throw new Error("http " + r.status);
+        return true;
+      }).catch(function(){
+        return fetch(url, {
+          method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain"}, body:body
+        }).then(function(){ return true; });
       });
+    }
+
+    var crm    = deliver(FORM_ENDPOINT).catch(function(){ return false; });
+    var engine = deliver(AUDIT_ENDPOINT).catch(function(){ return false; });
+
+    // Show the confirmation as soon as either side has the request. Waiting on
+    // both would hold the person on a spinner while a browser audit boots.
+    Promise.all([crm, engine]).then(function(r){
+      if (!r[0] && !r[1]) console.error("BizVeris: not delivered. Kept in localStorage.");
+      finish();
     });
   });
 })();
