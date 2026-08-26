@@ -46,7 +46,7 @@
   }
   .pad{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,52px)}
   .kicker{
-    font-size:.68rem;font-weight:700;letter-spacing:.2em;
+    font-size:clamp(.78rem,2.4vw,.84rem);font-weight:700;letter-spacing:.18em;
     text-transform:uppercase;color:var(--onink-2);
   }
 
@@ -66,7 +66,7 @@
 
   /* ---------------- head ---------------- */
   .head{padding:clamp(40px,7vh,76px) 0 clamp(28px,4vh,44px)}
-  .head h1{font-size:clamp(2.4rem,7vw,5rem);max-width:16ch}
+  .head h1{font-size:clamp(3.5rem,15.5vw,5rem);max-width:16ch}
   .head h1 em{font-style:normal;color:var(--yellow)}
   .head .lede{margin-top:clamp(18px,2.6vh,26px);max-width:58ch;font-size:1.06rem;color:var(--onink-2)}
 
@@ -76,6 +76,30 @@
     gap:clamp(28px,4vw,48px);padding-bottom:clamp(60px,10vh,110px);
   }
   @media (min-width:940px){ .cols{grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);align-items:start} }
+
+  /* on a phone the counter has to arrive before the form, not after it:
+     it is the reason anyone connects anything. */
+  @media (max-width:939px){
+    .cols{display:flex;flex-direction:column}
+    .panel{order:-1}
+    .head{padding-top:clamp(22px,3.5vh,34px);padding-bottom:20px}
+    .head .lede{font-size:1.02rem;margin-top:14px}
+    ul.checks{max-height:250px;overflow:hidden;position:relative;transition:max-height .4s ease}
+    ul.checks.open{max-height:2400px}
+    .fade-out{
+      position:absolute;left:0;right:0;bottom:0;height:64px;pointer-events:none;
+      background:linear-gradient(to bottom,rgba(26,28,26,0),var(--ink-2));
+    }
+    ul.checks.open + .more{margin-top:8px}
+    .more{
+      display:block;width:100%;margin-top:12px;background:transparent;
+      border:1px solid var(--line);color:var(--onink);font:inherit;
+      font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      padding:11px;cursor:pointer;
+    }
+    .more:hover{border-color:var(--onink-2)}
+  }
+  @media (min-width:940px){ .more,.fade-out{display:none} }
 
   /* ---------------- form ---------------- */
   fieldset{border:0;padding:0;margin:0 0 clamp(26px,4vh,40px)}
@@ -387,7 +411,8 @@
       <div class="bar"><span id="bar"></span></div>
     </div>
     <p class="nudge" id="nudge">Connect your CRM and this becomes nineteen.</p>
-    <ul class="checks" id="checks"></ul>
+    <div style="position:relative"><ul class="checks" id="checks"></ul><span class="fade-out" id="fadeOut"></span></div>
+    <button type="button" class="more" id="moreBtn">Show all 30 checks</button>
   </aside>
 </div>
 
@@ -537,6 +562,13 @@
     $("submitSub").textContent = WORDS[n].charAt(0).toUpperCase() + WORDS[n].slice(1) + " checks." +
       (crm.checked || bank.checked ? " We set it up on the call." : " No connection needed.");
   }
+
+  var moreBtn = $("moreBtn"), fadeOut = $("fadeOut");
+  moreBtn.addEventListener("click", function(){
+    var open = list.classList.toggle("open");
+    moreBtn.textContent = open ? "Show fewer" : "Show all " + TOTAL + " checks";
+    fadeOut.style.display = open ? "none" : "";
+  });
 
   crm.addEventListener("change", render);
   bank.addEventListener("change", render);
