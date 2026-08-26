@@ -322,6 +322,21 @@
   }
 
 
+  /* founder line, first person inside an otherwise company-voice section.
+     the voice shift is the point, so it gets its own rule and scale. */
+  .fquote{
+    margin:0;border-left:4px solid var(--yellow);
+    padding-left:clamp(18px,2.4vw,28px);max-width:54ch;
+  }
+  .fquote p{
+    font-size:clamp(1.14rem,2.2vw,1.52rem);line-height:1.34;
+    color:var(--onink);font-weight:500;
+  }
+  .fquote .by{
+    display:block;margin-top:15px;font-size:.72rem;font-weight:700;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--onink-2);
+  }
+
   /* ============ 7. TRUST TRIO ============ */
 
   /* the one claim no competitor can make, placed where the objection lands.
@@ -642,6 +657,10 @@
     <p class="kicker">Where this came from</p>
     <p class="proof-lead">The first business it diagnosed <em>was our own.</em></p>
     <p class="proof-body">OnPoint Pros is a residential remodeling company in North Dallas, and <span class="hl">Thu still runs it today</span>. Not a company that got sold, not one that got handed off. <b>Same owner, same five systems, same problem.</b> Before the remodeling company came a job as a <span class="hl">senior software engineer at JPMorgan Chase</span>, which is the only reason this got built instead of just complained about. BizVeris exists because there was no way to answer one simple question: <span class="hl">the month was bad, and nothing in any tool could say why</span>. So it got built, and it kept getting pointed at real months until it started <b>naming causes that turned out to be true</b>.</p>
+    <blockquote class="fquote">
+      <p>I started this company in May 2025. I could not afford to guess about a single month, so I built something that would tell me what was actually going on.</p>
+      <span class="by">Thu, founder</span>
+    </blockquote>
     <figure class="receipt" style="margin:0">
       <img width="312" height="112" loading="lazy" decoding="async"
            alt="Google listing for OnPoint Pros: 5.0 stars, 36 Google reviews, Remodeler in Allen, Texas."
@@ -822,7 +841,7 @@
   // .diagram is deliberately absent: it reveals itself by drawing its lines,
   // and a hidden build could otherwise get stuck at opacity 0 after a rotate.
   var sels = [".kicker",".sentence",".attrib",".conv > div",".conv .body",
-              ".sx",".rstep",".nocrm",".proof-lead",".proof-body",
+              ".sx",".rstep",".nocrm",".proof-lead",".proof-body",".fquote",
               ".receipt",".credential",".trio > div",".field.yellow h2",".hero-cta"];
   var targets = [];
   sels.forEach(function(s){
