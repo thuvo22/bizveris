@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request an audit · BizVeris</title>
+<meta name="description" content="Tell us what we can look at. The more you connect, the deeper the read. Public information alone gets you eleven checks.">
+<meta name="theme-color" content="#0C0D0C">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://bizveris.com/audit">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Big+Shoulders+Display:wght@600;700;800;900&display=swap">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0}
+  img,svg{max-width:100%;height:auto;display:block}
+</style>
+<style>
+  :root{
+    --ink:#0C0D0C; --ink-2:#1A1C1A; --ink-3:#22241F;
+    --concrete:#DFDFDA; --yellow:#FFD400; --red:#E8402A; --green:#4ADE80;
+    --paleink:#8C8C86; --onink:#EDEDE8; --onink-2:#8E918C; --line:#2E312A;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --ink:#0C0D0C; --ink-2:#1A1C1A; --ink-3:#22241F; --concrete:#DFDFDA;
+      --yellow:#FFD400; --red:#E8402A; --green:#4ADE80; --paleink:#8C8C86;
+      --onink:#EDEDE8; --onink-2:#8E918C; --line:#2E312A;
+    }
+  }
+
+  body{
+    background:var(--ink);color:var(--onink);
+    font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+    font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  p{margin:0}
+  a{color:inherit}
+  .display{
+    font-family:"Big Shoulders Display","Arial Narrow",sans-serif;
+    font-weight:800;text-transform:uppercase;line-height:.86;
+    letter-spacing:-.005em;margin:0;
+  }
+  .pad{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,52px)}
+  .kicker{
+    font-size:.68rem;font-weight:700;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--onink-2);
+  }
+
+  /* ---------------- top bar ---------------- */
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 0;border-bottom:1px solid var(--line);
+  }
+  .mark{
+    font-family:"Big Shoulders Display",sans-serif;font-weight:900;
+    font-size:1.4rem;letter-spacing:.14em;text-transform:uppercase;
+    text-decoration:none;
+  }
+  .mark i{font-style:normal;color:var(--yellow)}
+  .topbar .back{font-size:.8rem;font-weight:600;text-decoration:none;color:var(--onink-2)}
+  .topbar .back:hover{color:var(--onink)}
+
+  /* ---------------- head ---------------- */
+  .head{padding:clamp(40px,7vh,76px) 0 clamp(28px,4vh,44px)}
+  .head h1{font-size:clamp(2.4rem,7vw,5rem);max-width:16ch}
+  .head h1 em{font-style:normal;color:var(--yellow)}
+  .head .lede{margin-top:clamp(18px,2.6vh,26px);max-width:58ch;font-size:1.06rem;color:var(--onink-2)}
+
+  /* ---------------- layout ---------------- */
+  .cols{
+    display:grid;grid-template-columns:minmax(0,1fr);
+    gap:clamp(28px,4vw,48px);padding-bottom:clamp(60px,10vh,110px);
+  }
+  @media (min-width:940px){ .cols{grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);align-items:start} }
+
+  /* ---------------- form ---------------- */
+  fieldset{border:0;padding:0;margin:0 0 clamp(26px,4vh,40px)}
+  legend{padding:0;width:100%}
+  .step{
+    display:flex;align-items:baseline;gap:12px;
+    border-bottom:2px solid var(--onink);padding-bottom:9px;margin-bottom:20px;
+  }
+  .step .n{
+    font-family:"Big Shoulders Display",sans-serif;font-weight:800;
+    font-size:1.5rem;color:var(--yellow);line-height:1;
+  }
+  .step h2{
+    font-family:"Big Shoulders Display",sans-serif;font-weight:700;
+    text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;
+    margin:0;flex:1;line-height:1;
+  }
+  .step .tag{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--onink-2)}
+
+  .grid2{display:grid;grid-template-columns:1fr;gap:16px}
+  @media (min-width:600px){ .grid2{grid-template-columns:1fr 1fr} }
+  .field{display:flex;flex-direction:column;gap:7px}
+  .field.wide{grid-column:1/-1}
+  label{font-size:.82rem;font-weight:600;color:var(--onink)}
+  label .opt{font-weight:400;color:var(--onink-2)}
+  input[type=text],input[type=email],input[type=tel],input[type=url],select,textarea{
+    font:inherit;font-size:.97rem;color:var(--onink);
+    background:var(--ink-2);border:1px solid var(--line);border-radius:0;
+    padding:13px 14px;width:100%;
+    transition:border-color .15s ease,background .15s ease;
+  }
+  textarea{min-height:92px;resize:vertical}
+  input:focus,select:focus,textarea:focus{
+    outline:none;border-color:var(--yellow);background:var(--ink-3);
+  }
+  input::placeholder,textarea::placeholder{color:#5F625B}
+  select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--onink-2) 50%),linear-gradient(135deg,var(--onink-2) 50%,transparent 50%);
+    background-position:calc(100% - 19px) 55%,calc(100% - 13px) 55%;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+  .err{color:var(--red);font-size:.78rem;display:none}
+  .field.bad input,.field.bad select{border-color:var(--red)}
+  .field.bad .err{display:block}
+
+  /* ---------------- connect toggles ---------------- */
+  .conn{
+    border:1px solid var(--line);background:var(--ink-2);
+    padding:18px 18px 20px;display:flex;flex-direction:column;gap:14px;
+    transition:border-color .2s ease,background .2s ease;
+  }
+  .conn + .conn{margin-top:14px}
+  .conn.on{border-color:var(--yellow);background:var(--ink-3)}
+  .conn .row{display:flex;gap:14px;align-items:flex-start}
+  .conn .txt{flex:1;min-width:0}
+  .conn h3{
+    font-family:"Big Shoulders Display",sans-serif;font-weight:700;
+    text-transform:uppercase;font-size:1.14rem;margin:0 0 5px;letter-spacing:.02em;line-height:1.05;
+  }
+  .conn p{font-size:.9rem;color:var(--onink-2)}
+  .conn .adds{
+    font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--yellow);margin-top:8px;
+  }
+  .conn .extra{display:none;padding-top:4px}
+  .conn.on .extra{display:block}
+
+  /* switch */
+  .sw{position:relative;flex:none;width:52px;height:30px}
+  .sw input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;width:100%;height:100%}
+  .sw .track{
+    position:absolute;inset:0;background:#33362E;border:1px solid var(--line);
+    transition:background .2s ease,border-color .2s ease;pointer-events:none;
+  }
+  .sw .knob{
+    position:absolute;top:4px;left:4px;width:20px;height:20px;background:var(--onink-2);
+    transition:transform .2s cubic-bezier(.3,.7,.3,1),background .2s ease;pointer-events:none;
+  }
+  .sw input:checked ~ .track{background:var(--yellow);border-color:var(--yellow)}
+  .sw input:checked ~ .knob{transform:translateX(22px);background:var(--ink)}
+  .sw input:focus-visible ~ .track{outline:3px solid var(--yellow);outline-offset:3px}
+
+  /* ---------------- depth panel ---------------- */
+  .panel{
+    background:var(--ink-2);border:1px solid var(--line);
+    padding:clamp(20px,2.6vw,26px);
+  }
+  @media (min-width:940px){ .panel{position:sticky;top:22px} }
+  .meter .num{
+    font-family:"Big Shoulders Display",sans-serif;font-weight:800;
+    font-size:clamp(3.6rem,7vw,5.2rem);line-height:.82;color:var(--yellow);
+    font-variant-numeric:tabular-nums;
+  }
+  .meter .of{font-size:.9rem;color:var(--onink-2);margin-top:6px}
+  .bar{height:5px;background:#2A2D26;margin:16px 0 4px;overflow:hidden}
+  .bar span{display:block;height:100%;width:0;background:var(--yellow);transition:width .45s cubic-bezier(.2,.7,.3,1)}
+  .nudge{
+    font-size:.86rem;color:var(--onink);margin-top:14px;
+    border-left:3px solid var(--yellow);padding-left:12px;min-height:2.6em;
+  }
+  .nudge.done{border-left-color:var(--green);color:var(--onink-2)}
+
+  ul.checks{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:0}
+  ul.checks li{
+    display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start;
+    font-size:.87rem;padding:7px 0;border-top:1px solid #242720;color:var(--onink-2);
+    transition:color .25s ease,opacity .25s ease;opacity:.45;
+  }
+  ul.checks li.on{color:var(--onink);opacity:1}
+  ul.checks li .tick{
+    width:16px;height:16px;border:1.5px solid #3C3F37;margin-top:2px;
+    transition:background .25s ease,border-color .25s ease;position:relative;
+  }
+  ul.checks li.on .tick{background:var(--yellow);border-color:var(--yellow)}
+  ul.checks li.on .tick::after{
+    content:"";position:absolute;left:4.5px;top:1px;width:4px;height:9px;
+    border:solid var(--ink);border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  ul.checks .grp{
+    grid-column:1/-1;border-top:0;padding:16px 0 4px;color:var(--onink-2);opacity:1;
+    font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  }
+  ul.checks .grp:first-child{padding-top:4px}
+
+  /* ---------------- submit ---------------- */
+  .slab{
+    display:inline-flex;flex-direction:column;gap:3px;align-items:flex-start;
+    text-decoration:none;background:var(--yellow);color:var(--ink);border:0;
+    padding:18px 30px;font:inherit;font-weight:700;font-size:1.02rem;line-height:1.15;
+    cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;width:100%;
+  }
+  .slab span{font-size:.7rem;font-weight:500;opacity:.66}
+  .slab:hover,.slab:focus-visible{transform:translate(-3px,-3px);box-shadow:6px 6px 0 rgba(255,212,0,.28)}
+  .slab[disabled]{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+  .fineprint{font-size:.8rem;color:var(--onink-2);margin-top:14px;max-width:52ch}
+
+  /* ---------------- done ---------------- */
+  .done-panel{display:none;padding:clamp(30px,5vh,54px) 0 clamp(60px,10vh,100px)}
+  .done-panel h2{font-size:clamp(2rem,5.4vw,3.6rem);max-width:18ch}
+  .done-panel .lede{margin-top:18px;max-width:56ch;color:var(--onink-2)}
+  .done-panel .next{
+    margin-top:26px;border:1px solid var(--line);background:var(--ink-2);padding:22px;
+    display:flex;flex-direction:column;gap:14px;max-width:520px;
+  }
+  .done-panel ol{margin:0;padding-left:20px;color:var(--onink-2);font-size:.93rem}
+  .done-panel ol li{margin:6px 0}
+
+  footer{border-top:1px solid var(--line);padding:26px 0 44px;font-size:.8rem;color:var(--onink-2)}
+  :focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="pad">
+  <div class="topbar">
+    <a class="mark" href="/">Biz<i>Veris</i></a>
+    <a class="back" href="/">Back to the site</a>
+  </div>
+</div>
+
+<div class="pad head">
+  <p class="kicker">Request an audit</p>
+  <h1 class="display" style="margin-top:14px">Tell us what we <em>can look at.</em></h1>
+  <p class="lede">Every audit starts with what is already public, and that alone is worth eleven checks. Connect more and we can see more. You decide how deep this goes.</p>
+</div>
+
+<div class="pad cols">
+
+  <!-- =============== FORM =============== -->
+  <form id="auditForm" novalidate>
+
+    <fieldset>
+      <legend>
+        <div class="step"><span class="n">1</span><h2>The basics</h2><span class="tag">Required</span></div>
+      </legend>
+      <div class="grid2">
+        <div class="field">
+          <label for="biz">Business name</label>
+          <input type="text" id="biz" name="business" autocomplete="organization" placeholder="OnPoint Pros">
+          <span class="err">We need the business name to look anything up.</span>
+        </div>
+        <div class="field">
+          <label for="trade">Trade</label>
+          <select id="trade" name="trade">
+            <option value="">Choose one</option>
+            <option>Remodeling</option><option>Plumbing</option><option>HVAC</option>
+            <option>Electrical</option><option>Roofing</option><option>Landscaping</option>
+            <option>Painting</option><option>Flooring</option><option>Garage doors</option>
+            <option>Pest control</option><option>Cleaning</option><option>Other home service</option>
+          </select>
+          <span class="err">Pick the closest one.</span>
+        </div>
+        <div class="field">
+          <label for="site">Website <span class="opt">(if you have one)</span></label>
+          <input type="url" id="site" name="website" inputmode="url" placeholder="yourcompany.com">
+        </div>
+        <div class="field">
+          <label for="area">Service area</label>
+          <input type="text" id="area" name="area" placeholder="North Dallas, Collin County">
+          <span class="err">Which towns do you actually work in?</span>
+        </div>
+        <div class="field wide">
+          <label for="mainline">The phone number customers call</label>
+          <input type="tel" id="mainline" name="phone" autocomplete="tel" placeholder="(469) 555 0134">
+          <span class="err">We call this line three times. Nothing happens without it.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <div class="step"><span class="n">2</span><h2>What we can connect</h2><span class="tag">Optional</span></div>
+      </legend>
+
+      <div class="conn" id="connCrm">
+        <div class="row">
+          <span class="sw">
+            <input type="checkbox" id="crm" name="crm" aria-describedby="crmDesc">
+            <span class="track"></span><span class="knob"></span>
+          </span>
+          <div class="txt">
+            <h3>Your CRM</h3>
+            <p id="crmDesc">Read only. We look at leads, quotes, messages and call recordings. We never send anything to a customer of yours.</p>
+            <p class="adds">Adds 8 checks</p>
+            <div class="extra">
+              <div class="field" style="margin-top:12px">
+                <label for="crmName">Which one do you use?</label>
+                <select id="crmName" name="crm_name">
+                  <option value="">Choose one</option>
+                  <option>ServiceTitan</option><option>Jobber</option><option>Housecall Pro</option>
+                  <option>GoHighLevel</option><option>HubSpot</option><option>Salesforce</option>
+                  <option>Workiz</option><option>Sera</option><option>Successware</option>
+                  <option>A spreadsheet</option><option>Something else</option>
+                  <option>Nothing yet</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="conn" id="connBank">
+        <div class="row">
+          <span class="sw">
+            <input type="checkbox" id="bank" name="bank" aria-describedby="bankDesc">
+            <span class="track"></span><span class="knob"></span>
+          </span>
+          <div class="txt">
+            <h3>Your bank, through Plaid</h3>
+            <p id="bankDesc">Read only, and your login never reaches us. Plaid is the same service Venmo and Robinhood use. BizVeris can see transactions. It cannot move a dollar.</p>
+            <p class="adds">Adds 7 checks</p>
+            <div class="extra">
+              <p style="font-size:.86rem;color:var(--onink-2);margin-top:12px">
+                Nothing connects today. If you tick this we send the Plaid link on the call, and you click it yourself while watching.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="fineprint">Ticking a box here does not connect anything. It tells us what to prepare, and what the read can cover.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <div class="step"><span class="n">3</span><h2>Where to send it</h2><span class="tag">Required</span></div>
+      </legend>
+      <div class="grid2">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" placeholder="Thu">
+          <span class="err">Who are we talking to?</span>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@yourcompany.com">
+          <span class="err">We need somewhere to send the read.</span>
+        </div>
+        <div class="field wide">
+          <label for="worst">What was your worst month this year, and what do you think caused it? <span class="opt">(optional, and the most useful box on this page)</span></label>
+          <textarea id="worst" name="worst" placeholder="August. I think the leads got worse."></textarea>
+        </div>
+        <div class="field wide">
+          <label style="display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:.86rem;color:var(--onink-2)">
+            <input type="checkbox" id="consent" name="consent" style="width:auto;margin-top:3px;accent-color:var(--yellow)">
+            <span>You have my permission to call the number above three times over the next week, unannounced, and to note what happened.</span>
+          </label>
+          <span class="err">The call test is the whole point. We cannot run it without your say so.</span>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;max-width:420px">
+        <button class="slab" type="submit" id="submitBtn">
+          Request the audit
+          <span id="submitSub">Eleven checks. No connection needed.</span>
+        </button>
+      </div>
+      <p class="fineprint">We read it, we run it, and we walk you through what we found on a call. If it does not name at least three things you did not already know, say so on that call and we will not ask you for anything.</p>
+    </fieldset>
+  </form>
+
+  <!-- =============== DEPTH PANEL =============== -->
+  <aside class="panel" aria-live="polite">
+    <p class="kicker">What this read can cover</p>
+    <div class="meter" style="margin-top:12px">
+      <div class="num" id="count">11</div>
+      <div class="of">checks of 30 possible</div>
+      <div class="bar"><span id="bar"></span></div>
+    </div>
+    <p class="nudge" id="nudge">Connect your CRM and this becomes nineteen.</p>
+    <ul class="checks" id="checks"></ul>
+  </aside>
+</div>
+
+<!-- =============== DONE =============== -->
+<div class="pad done-panel" id="done">
+  <p class="kicker">Request received</p>
+  <h2 class="display" style="margin-top:14px">Now we go <em style="font-style:normal;color:var(--yellow)">looking.</em></h2>
+  <p class="lede" id="doneLede">We have what we need to start. The first thing we do is call your line, so do not be surprised.</p>
+  <div class="next">
+    <p class="kicker">What happens next</p>
+    <ol>
+      <li>We run every check you unlocked. That takes a few days, and three of those days include a call to your line.</li>
+      <li>You get a time to talk. Forty five minutes, and we do any setup live while you watch.</li>
+      <li>We walk you through what we found, worst first.</li>
+    </ol>
+    <a class="slab" id="bookBtn" href="#" style="display:none">Pick a time now<span>Forty five minutes. We do the setup.</span></a>
+  </div>
+</div>
+
+<div class="pad"><footer>BizVeris. Diagnosis for home service businesses. North Dallas, Texas.</footer></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     CONFIGURE THESE TWO BEFORE LAUNCH
+     FORM_ENDPOINT : a URL that accepts a POST of JSON (form handler,
+                     webhook, or a Worker function). Leave "" and the
+                     form still works, storing locally as a backstop.
+     CALENDAR_URL  : booking link shown after submit. Leave "" to hide.
+  ------------------------------------------------------------------ */
+  var FORM_ENDPOINT = "";
+  var CALENDAR_URL  = "";
+
+  var CHECKS = {
+    base: ["Public information", [
+      "Where you show up on the map across your whole service area",
+      "Duplicate or competing Google listings working against each other",
+      "Review count, how recent they are, and how many you replied to",
+      "Whether your reviews describe the work you actually want to sell",
+      "How fast your site loads, and what it does on a phone",
+      "How many of your pages Google has actually indexed",
+      "Whether your contact form really delivers, tested by us using it",
+      "Three unannounced calls: ring time, who answered, what they said",
+      "Whether anyone covers evenings and weekends",
+      "Whether a missed call gets a text back, or nothing at all",
+      "The ads you are running right now, pulled from public ad libraries"
+    ]],
+    crm: ["With your CRM", [
+      "How long a new lead waits, across every lead and not just the average",
+      "How many times a lead gets touched before everyone gives up",
+      "The dollar value of quotes sitting open that nobody has worked",
+      "Quotes that went cold after a real conversation, counted and valued",
+      "Close rate and average job size, split by where the lead came from",
+      "How many leads are still sitting in a status nobody moved",
+      "How much of your lead flow is junk, duplicates or robocalls",
+      "Your sales calls scored: greeting, budget, who decides, next step"
+    ]],
+    bank: ["With your bank", [
+      "Where the money actually went, categorised against the deposits",
+      "Your real margin, verified against what cleared and not what was invoiced",
+      "What you spend on marketing as a share of what you take in",
+      "What you spend versus what you believe you spend",
+      "How much of your revenue depends on one customer",
+      "Recurring charges you forgot you were paying",
+      "What leaves the account before the money for that job arrives"
+    ]],
+    both: ["With both", [
+      "What a customer costs you to win, channel by channel",
+      "What that customer is worth in gross profit against what they cost",
+      "How long each channel takes to pay you back",
+      "Booked, collected and deposited, reconciled against each other"
+    ]]
+  };
+
+  var WORDS = ["zero","one","two","three","four","five","six","seven","eight","nine","ten",
+    "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen",
+    "nineteen","twenty","twenty one","twenty two","twenty three","twenty four","twenty five",
+    "twenty six","twenty seven","twenty eight","twenty nine","thirty"];
+
+  var $ = function(id){ return document.getElementById(id); };
+  var crm = $("crm"), bank = $("bank");
+  var list = $("checks"), countEl = $("count"), barEl = $("bar"), nudgeEl = $("nudge");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* build the list once, toggle classes after */
+  var rows = [];
+  ["base","crm","bank","both"].forEach(function(key){
+    var g = document.createElement("li");
+    g.className = "grp"; g.textContent = CHECKS[key][0];
+    list.appendChild(g);
+    CHECKS[key][1].forEach(function(text){
+      var li = document.createElement("li");
+      li.innerHTML = '<span class="tick"></span><span></span>';
+      li.lastChild.textContent = text;
+      list.appendChild(li);
+      rows.push({el:li, key:key});
+    });
+  });
+
+  var TOTAL = rows.length;
+
+  function unlocked(){
+    var c = crm.checked, b = bank.checked;
+    return function(key){
+      return key === "base" || (key === "crm" && c) || (key === "bank" && b) || (key === "both" && c && b);
+    };
+  }
+
+  var shown = 11;      // animated display value
+  var current = 11;    // truth, updated synchronously in render()
+  function animateTo(target){
+    if (reduce){ countEl.textContent = target; shown = target; return; }
+    var from = shown, t0 = null, dur = 420;
+    function step(ts){
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0)/dur, 1), e = 1 - Math.pow(1-p, 3);
+      countEl.textContent = Math.round(from + (target - from)*e);
+      if (p < 1) requestAnimationFrame(step); else shown = target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  function render(){
+    var isOn = unlocked(), n = 0;
+    rows.forEach(function(r){
+      var on = isOn(r.key);
+      r.el.classList.toggle("on", on);
+      if (on) n++;
+    });
+    current = n;
+    animateTo(n);
+    barEl.style.width = Math.round(n/TOTAL*100) + "%";
+
+    $("connCrm").classList.toggle("on", crm.checked);
+    $("connBank").classList.toggle("on", bank.checked);
+
+    var msg, done = false;
+    if (crm.checked && bank.checked){ msg = "That is everything we can see. Nothing deeper exists."; done = true; }
+    else if (crm.checked){ msg = "Add your bank and this becomes " + WORDS[30] + "."; }
+    else if (bank.checked){ msg = "Add your CRM and this becomes " + WORDS[30] + "."; }
+    else { msg = "Connect your CRM and this becomes " + WORDS[19] + "."; }
+    nudgeEl.textContent = msg;
+    nudgeEl.classList.toggle("done", done);
+
+    $("submitSub").textContent = WORDS[n].charAt(0).toUpperCase() + WORDS[n].slice(1) + " checks." +
+      (crm.checked || bank.checked ? " We set it up on the call." : " No connection needed.");
+  }
+
+  crm.addEventListener("change", render);
+  bank.addEventListener("change", render);
+  render();
+
+  /* ---------------- validation + submit ---------------- */
+  var form = $("auditForm");
+  var required = [
+    {id:"biz"}, {id:"trade"}, {id:"area"}, {id:"mainline"},
+    {id:"name"}, {id:"email", test:function(v){ return /.+@.+\..+/.test(v); }},
+    {id:"consent", checkbox:true}
+  ];
+
+  function validate(){
+    var ok = true, firstBad = null;
+    required.forEach(function(r){
+      var el = $(r.id), wrap = el.closest(".field");
+      var good = r.checkbox ? el.checked : (r.test ? r.test(el.value.trim()) : el.value.trim().length > 0);
+      if (wrap) wrap.classList.toggle("bad", !good);
+      if (!good && !firstBad) firstBad = el;
+      if (!good) ok = false;
+    });
+    if (firstBad) firstBad.focus();
+    return ok;
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if (!validate()) return;
+
+    var payload = {
+      submitted_at: new Date().toISOString(),
+      business: $("biz").value.trim(),
+      trade: $("trade").value,
+      website: $("site").value.trim(),
+      area: $("area").value.trim(),
+      phone: $("mainline").value.trim(),
+      name: $("name").value.trim(),
+      email: $("email").value.trim(),
+      worst_month: $("worst").value.trim(),
+      connect_crm: crm.checked,
+      crm_name: crm.checked ? $("crmName").value : "",
+      connect_bank: bank.checked,
+      call_consent: $("consent").checked,
+      checks_unlocked: current,
+      tier: crm.checked && bank.checked ? "full" : crm.checked ? "crm" : bank.checked ? "bank" : "public",
+      page: location.href
+    };
+
+    // local backstop so a request is never lost while the endpoint is unset
+    try {
+      var box = JSON.parse(localStorage.getItem("bizveris_audit_requests") || "[]");
+      box.push(payload);
+      localStorage.setItem("bizveris_audit_requests", JSON.stringify(box));
+    } catch (err) {}
+
+    var btn = $("submitBtn");
+    btn.disabled = true;
+
+    function finish(){
+      form.style.display = "none";
+      document.querySelector(".panel").style.display = "none";
+      document.querySelector(".head").style.display = "none";
+      var d = $("done");
+      d.style.display = "block";
+      $("doneLede").textContent = payload.connect_crm || payload.connect_bank
+        ? "We have what we need to start on " + WORDS[payload.checks_unlocked] +
+          " checks. We will send the connection links before the call, and you click them yourself while watching."
+        : "We have what we need to start on " + WORDS[payload.checks_unlocked] +
+          " checks. The first thing we do is call your line, so do not be surprised.";
+      if (CALENDAR_URL){
+        var b = $("bookBtn"); b.href = CALENDAR_URL; b.style.display = "inline-flex";
+      }
+      d.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+    }
+
+    if (!FORM_ENDPOINT){
+      console.warn("BizVeris: FORM_ENDPOINT is not set. Request stored in localStorage only.");
+      finish(); return;
+    }
+    fetch(FORM_ENDPOINT, {
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)
+    }).then(finish).catch(function(){ finish(); });
+  });
+})();
+</script>
+</body>
+</html>
