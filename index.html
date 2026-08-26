@@ -144,9 +144,22 @@
   .fade.out{opacity:0}
 
   /* progress pips: which of the four you are looking at */
-  .pips{display:flex;gap:6px;margin-top:2px}
-  .pip{width:22px;height:3px;background:#3A3D37;transition:background .3s ease}
-  .pip.on{background:var(--yellow)}
+  .pips{display:flex;gap:8px;margin-top:2px}
+  /* buttons, not decoration: the visible bar is 3px but the hit area is 18px
+     tall so a thumb can actually land on it. */
+  .pip{
+    width:26px;height:18px;padding:0;border:0;background:transparent;
+    position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  }
+  .pip::after{
+    content:"";position:absolute;left:0;right:0;top:50%;height:3px;
+    transform:translateY(-50%);background:#3A3D37;transition:background .25s ease;
+  }
+  .pip:hover::after{background:#6B6E64}
+  .pip.on::after,.pip.on:hover::after{background:var(--yellow)}
+  .pip:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+  /* let vertical scrolling through the card work while we claim horizontal */
+  .finding{touch-action:pan-y}
 
   /* reduced motion gets the whole list at once instead of a rotation */
   .allfour{display:none;flex-direction:column;gap:16px}
@@ -761,14 +774,17 @@
     return;
   }
 
-  FINDINGS.forEach(function(_, i){
-    var p = document.createElement("span");
-    p.className = "pip" + (i === 0 ? " on" : "");
-    pips.appendChild(p);
+  FINDINGS.forEach(function(f, i){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "pip" + (i === 0 ? " on" : "");
+    b.setAttribute("aria-label", "Show finding " + (i+1) + " of " + FINDINGS.length + ": " + f.dom);
+    b.addEventListener("click", function(){ goTo(i); hold(); });
+    pips.appendChild(b);
   });
 
   var parts = [fDom, fLab, fVal, fCause];
-  var idx = 0;
+  var idx = 0, timer = null, holdTimer = null, onScreen = true;
 
   function strike(){
     was.classList.remove("cut");
@@ -778,32 +794,79 @@
   }
   strike();
 
-  function show(i){
+  function paint(i){
     var f = FINDINGS[i];
     fDom.textContent = f.dom;
     fLab.textContent = f.lab;
     was.textContent = f.was;
     now.textContent = f.now;
     fCause.textContent = f.cause;
-    Array.prototype.forEach.call(pips.children, function(p, n){
-      p.classList.toggle("on", n === i);
+    Array.prototype.forEach.call(pips.children, function(b, n){
+      b.classList.toggle("on", n === i);
+      b.setAttribute("aria-current", n === i ? "true" : "false");
     });
     strike();
   }
 
-  var timer = setInterval(function(){
+  function goTo(i){
+    if (i === idx) return;
     parts.forEach(function(n){ n.classList.add("out"); });
     setTimeout(function(){
-      idx = (idx + 1) % FINDINGS.length;
-      show(idx);
+      idx = (i + FINDINGS.length) % FINDINGS.length;
+      paint(idx);
       parts.forEach(function(n){ n.classList.remove("out"); });
     }, 360);
-  }, 4200);
+  }
 
-  // stop rotating once the hero is off screen; nothing to watch, no work to do
+  function play(){ if (!timer && onScreen) timer = setInterval(function(){ goTo(idx + 1); }, 4200); }
+  function pause(){ clearInterval(timer); timer = null; }
+
+  // after you drive it by hand, give it a while before it starts moving again
+  function hold(){
+    pause();
+    clearTimeout(holdTimer);
+    holdTimer = setTimeout(function(){ holdTimer = null; play(); }, 9000);
+  }
+
+  play();
+
+  // swipe, and arrow keys once a pip has focus
+  var x0 = null, y0 = null;
+  finding.addEventListener("touchstart", function(e){
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, {passive:true});
+  finding.addEventListener("touchend", function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    // horizontal intent only, so a vertical scroll never flips the card
+    if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+      goTo(idx + (dx < 0 ? 1 : -1));
+      hold();
+    }
+    x0 = y0 = null;
+  }, {passive:true});
+
+  pips.addEventListener("keydown", function(e){
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    var to = (idx + (e.key === "ArrowRight" ? 1 : -1) + FINDINGS.length) % FINDINGS.length;
+    goTo(to); hold();
+    pips.children[to].focus();
+  });
+
+  // a pointer resting on the card means someone is reading it. only wire this
+  // on devices with a real hovering pointer: touch synthesizes mouseenter but
+  // often never fires the matching mouseleave, which would freeze it for good.
+  var canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (canHover) {
+    finding.addEventListener("mouseenter", pause);
+    finding.addEventListener("mouseleave", function(){ holdTimer = null; play(); });
+  }
+
+  // pause off screen, pick back up on the way past
   if("IntersectionObserver" in window && finding){
     new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(!e.isIntersecting) clearInterval(timer); });
+      es.forEach(function(e){ onScreen = e.isIntersecting; onScreen ? play() : pause(); });
     }, {threshold:0}).observe(finding);
   }
 
