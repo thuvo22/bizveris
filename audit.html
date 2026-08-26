@@ -179,6 +179,28 @@
   .sw input:checked ~ .knob{transform:translateX(22px);background:var(--ink)}
   .sw input:focus-visible ~ .track{outline:3px solid var(--yellow);outline-offset:3px}
 
+  /* consent is a hard gate, so it has to look like one */
+  .consent-box{
+    border:1px solid var(--line);background:var(--ink-2);padding:15px 17px 16px;
+    display:flex;flex-direction:column;gap:10px;
+    transition:border-color .2s ease,background .2s ease;
+  }
+  .consent-box.checked{border-color:var(--yellow);background:var(--ink-3)}
+  .consent-box.bad{border-color:var(--red);background:#22140F}
+  .consent-box .req{
+    font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--yellow);
+  }
+  .consent-box.bad .req{color:var(--red)}
+  .consent-box label{
+    display:flex;gap:12px;align-items:flex-start;cursor:pointer;
+    font-weight:400;font-size:.9rem;color:var(--onink);line-height:1.45;
+  }
+  .consent-box input{
+    width:21px;height:21px;flex:none;margin:1px 0 0;accent-color:var(--yellow);cursor:pointer;
+  }
+  .consent-box.bad .err{display:block}
+
   /* ---------------- depth panel ---------------- */
   .panel{
     background:var(--ink-2);border:1px solid var(--line);
@@ -383,9 +405,10 @@
           <label for="worst">What was your worst month this year, and what do you think caused it? <span class="opt">(optional, and the most useful box on this page)</span></label>
           <textarea id="worst" name="worst" placeholder="August. I think the leads got worse."></textarea>
         </div>
-        <div class="field wide">
-          <label style="display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:.86rem;color:var(--onink-2)">
-            <input type="checkbox" id="consent" name="consent" style="width:auto;margin-top:3px;accent-color:var(--yellow)">
+        <div class="field wide consent-box" id="consentBox">
+          <span class="req">Required</span>
+          <label for="consent">
+            <input type="checkbox" id="consent" name="consent" required aria-required="true">
             <span>You have my permission to call the number above three times over the next week, unannounced, and to note what happened.</span>
           </label>
           <span class="err">The call test is the whole point. We cannot run it without your say so.</span>
@@ -570,6 +593,12 @@
     fadeOut.style.display = open ? "none" : "";
   });
 
+  var consentBox = $("consentBox"), consentEl = $("consent");
+  consentEl.addEventListener("change", function(){
+    consentBox.classList.toggle("checked", consentEl.checked);
+    if (consentEl.checked) consentBox.classList.remove("bad");
+  });
+
   crm.addEventListener("change", render);
   bank.addEventListener("change", render);
   render();
@@ -586,6 +615,7 @@
     var ok = true, firstBad = null;
     required.forEach(function(r){
       var el = $(r.id), wrap = el.closest(".field");
+      if (r.id === "consent") wrap = $("consentBox");
       var good = r.checkbox ? el.checked : (r.test ? r.test(el.value.trim()) : el.value.trim().length > 0);
       if (wrap) wrap.classList.toggle("bad", !good);
       if (!good && !firstBad) firstBad = el;
