@@ -81,13 +81,21 @@
     letter-spacing:.02em;border-bottom:2px solid var(--yellow);padding-bottom:2px;
   }
 
+  /* call-out: says "this is for you" before the headline says anything else.
+     yellow text rather than a chip, so it does not fight the chip below it. */
+  .callout{
+    font-size:clamp(.72rem,1.4vw,.84rem);font-weight:700;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);
+    margin:0 0 clamp(14px,2.2vh,24px);
+  }
+
   .hero-type{
     position:relative;z-index:2;padding-top:clamp(30px,7vh,80px);
     pointer-events:none;
   }
-  .l1{font-size:clamp(3.4rem,12.4vw,11rem);color:var(--onink)}
+  .l1{font-size:clamp(3.4rem,min(12.4vw,12vh),11rem);color:var(--onink)}
   .l2{
-    font-size:clamp(4.2rem,16.4vw,14.5rem);color:var(--yellow);
+    font-size:clamp(4.2rem,min(16.4vw,15vh),14.5rem);color:var(--yellow);
     margin-top:-.06em;margin-left:clamp(0px,7vw,120px);
   }
 
@@ -126,7 +134,7 @@
 
   .finding{
     display:flex;flex-direction:column;gap:11px;
-    min-height:clamp(150px,20vh,196px);
+    min-height:clamp(140px,18vh,190px);
   }
   .finding .cause{
     max-width:40ch;font-size:1.04rem;color:var(--onink);
@@ -440,8 +448,15 @@
 
   @media (max-width:760px){
     .l2{margin-left:0}
-    .stamp{margin-top:14px}
-    .slab{width:100%}
+    .stamp{margin-top:6px}
+    .slab{width:100%;padding:15px 24px}
+    /* the rotator reserves height so rotating cards do not jump the layout.
+       on a phone that reserve is what pushes the CTAs off the fold, and the
+       cards are short enough there that the jump is not worth the cost. */
+    .finding{min-height:0}
+    .hero{padding-bottom:18px}
+    .hero-type{padding-top:16px}
+    .hero-cta{margin-top:16px}
   }
 </style>
 </head>
@@ -463,6 +478,7 @@
     </div>
 
     <div class="hero-type">
+      <p class="callout">For home service contractors doing $1M to $8M</p>
       <h1 class="display l1">You blamed<br>the leads.</h1>
       <p class="display l2">It wasn't<br>the leads.</p>
     </div>
@@ -710,7 +726,7 @@
 <footer>
   <div class="pad" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;width:100%">
     <span class="mark">Biz<i>Veris</i></span>
-    <p>Built by Thu in North Dallas, Texas, on a remodeling company that is still open.</p>
+    <p>Diagnosis for home service businesses. Built by Thu in North Dallas, Texas, on a remodeling company that is still open.</p>
   </div>
 </footer>
 
