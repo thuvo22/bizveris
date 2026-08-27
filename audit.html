@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Request an audit · BizVeris</title>
-<meta name="description" content="Tell us what we can look at. The more you connect, the deeper the read. Public information alone gets you thirteen checks.">
+<meta name="description" content="Tell us what we can look at. The more you connect, the deeper the read. Public information alone gets you fourteen checks.">
 <meta name="theme-color" content="#0C0D0C">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://bizveris.com/audit">
@@ -484,6 +484,7 @@
       "Who is taking the map spot instead of you, named",
       "Duplicate or competing Google listings working against each other",
       "Review count, how recent they are, and how many you replied to",
+      "How fast reviews actually arrive, measured and tracked between audits",
       "Whether your reviews describe the work you actually want to sell",
       "How fast your site loads, and what it does on a phone",
       "How many of your pages Google has actually indexed",
@@ -524,7 +525,7 @@
     "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen",
     "nineteen","twenty","twenty one","twenty two","twenty three","twenty four","twenty five",
     "twenty six","twenty seven","twenty eight","twenty nine","thirty",
-    "thirty one","thirty two"];
+    "thirty one","thirty two","thirty three"];
 
   var $ = function(id){ return document.getElementById(id); };
   var crm = $("crm"), bank = $("bank");
@@ -585,9 +586,9 @@
 
     var msg, done = false;
     if (crm.checked && bank.checked){ msg = "That is everything we can see. Nothing deeper exists."; done = true; }
-    else if (crm.checked){ msg = "Add your bank and this becomes " + WORDS[32] + "."; }
-    else if (bank.checked){ msg = "Add your CRM and this becomes " + WORDS[32] + "."; }
-    else { msg = "Connect your CRM and this becomes " + WORDS[21] + "."; }
+    else if (crm.checked){ msg = "Add your bank and this becomes " + WORDS[33] + "."; }
+    else if (bank.checked){ msg = "Add your CRM and this becomes " + WORDS[33] + "."; }
+    else { msg = "Connect your CRM and this becomes " + WORDS[22] + "."; }
     nudgeEl.textContent = msg;
     nudgeEl.classList.toggle("done", done);
 
