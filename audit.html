@@ -308,12 +308,21 @@
           <label for="trade">Trade</label>
           <select id="trade" name="trade">
             <option value="">Choose one</option>
-            <option>Remodeling</option><option>Plumbing</option><option>HVAC</option>
-            <option>Electrical</option><option>Roofing</option><option>Landscaping</option>
-            <option>Painting</option><option>Flooring</option><option>Garage doors</option>
-            <option>Pest control</option><option>Cleaning</option><option>Other home service</option>
+            <option>Remodeling</option><option>Bathroom remodeling</option>
+            <option>Kitchen remodeling</option><option>Drywall</option>
+            <option>Plumbing</option><option>HVAC</option><option>Electrical</option>
+            <option>Roofing</option><option>Painting</option><option>Flooring</option>
+            <option>Handyman</option><option>Landscaping</option><option>Fencing</option>
+            <option>Concrete</option><option>Windows</option><option>Garage doors</option>
+            <option>Pool service</option><option>Pest control</option><option>Cleaning</option>
+            <option>Other home service</option>
           </select>
           <span class="err">Pick the closest one.</span>
+        </div>
+        <div class="field" id="tradeOtherWrap" style="display:none">
+          <label for="tradeOther">What do customers search for to find you?</label>
+          <input type="text" id="tradeOther" name="trade_other" placeholder="gutter cleaning, foundation repair">
+          <span class="err">We search these words on your behalf, so they have to be real.</span>
         </div>
         <div class="field">
           <label for="site">Website <span class="opt">(if you have one)</span></label>
@@ -609,6 +618,14 @@
     if (consentEl.checked) consentBox.classList.remove("bad");
   });
 
+  var tradeEl = $("trade"), tradeOtherWrap = $("tradeOtherWrap");
+  function syncTradeOther(){
+    var other = tradeEl.value === "Other home service";
+    tradeOtherWrap.style.display = other ? "flex" : "none";
+  }
+  tradeEl.addEventListener("change", syncTradeOther);
+  syncTradeOther();
+
   crm.addEventListener("change", render);
   bank.addEventListener("change", render);
   render();
@@ -617,6 +634,8 @@
   var form = $("auditForm");
   var required = [
     {id:"biz"}, {id:"trade"}, {id:"area"}, {id:"mainline"},
+    {id:"tradeOther", test:function(v){
+       return $("trade").value !== "Other home service" || v.length > 2; }},
     {id:"name"}, {id:"email", test:function(v){ return /.+@.+\..+/.test(v); }},
     {id:"consent", checkbox:true}
   ];
@@ -653,7 +672,9 @@
     var payload = {
       submitted_at: new Date().toISOString(),
       business: $("biz").value.trim(),
-      trade: $("trade").value,
+      trade: $("trade").value === "Other home service" && $("tradeOther").value.trim()
+             ? $("tradeOther").value.trim() : $("trade").value,
+      trade_picked: $("trade").value,
       website: $("site").value.trim(),
       area: $("area").value.trim(),
       phone: $("mainline").value.trim(),
