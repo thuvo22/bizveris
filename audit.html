@@ -634,7 +634,18 @@
   form.addEventListener("submit", function(e){
     e.preventDefault();
     if (!validate()) return;
+    try { submit(); } catch (err) {
+      // A throw in here used to do nothing at all: no request, no message, a
+      // button that still looked ready. Silence is the worst failure this form
+      // has, because the person believes they asked us and we never heard.
+      console.error("BizVeris submit failed:", err);
+      var b = $("submitBtn");
+      b.disabled = false;
+      b.textContent = "Something broke. Email audit@bizveris.com";
+    }
+  });
 
+  function submit(){
     var payload = {
       submitted_at: new Date().toISOString(),
       business: $("biz").value.trim(),
@@ -702,16 +713,19 @@
       });
     }
 
-    var crm    = deliver(FORM_ENDPOINT).catch(function(){ return false; });
-    var engine = deliver(AUDIT_ENDPOINT).catch(function(){ return false; });
+    // Named so they cannot shadow the crm/bank checkboxes: var is hoisted to
+    // the top of this handler, so a name reused here is undefined for the whole
+    // function, including the payload built above it.
+    var toCrm    = deliver(FORM_ENDPOINT).catch(function(){ return false; });
+    var toEngine = deliver(AUDIT_ENDPOINT).catch(function(){ return false; });
 
     // Show the confirmation as soon as either side has the request. Waiting on
     // both would hold the person on a spinner while a browser audit boots.
-    Promise.all([crm, engine]).then(function(r){
+    Promise.all([toCrm, toEngine]).then(function(r){
       if (!r[0] && !r[1]) console.error("BizVeris: not delivered. Kept in localStorage.");
       finish();
     });
-  });
+  }
 })();
 </script>
 </body>
