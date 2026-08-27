@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Request an audit · BizVeris</title>
-<meta name="description" content="Tell us what we can look at. The more you connect, the deeper the read. Public information alone gets you fourteen checks.">
+<meta name="description" content="Tell us what we can look at. The more you connect, the deeper the read. Public information alone gets you fifteen checks.">
 <meta name="theme-color" content="#0C0D0C">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://bizveris.com/audit">
@@ -537,6 +537,7 @@
       "How fast your site loads, and what it does on a phone",
       "How many of your pages Google has actually indexed",
       "Whether your site tells Google, in code, that it is your Google listing",
+      "Whether a customer can tell what happens after hours, if you take urgent work, whether it can be financed, and that you cover their town",
       "Whether your contact form really delivers, tested by us using it",
       "Three calls placed the way a customer would: ring time, who answered, what they said",
       "Whether anyone covers evenings and weekends",
@@ -635,9 +636,9 @@
 
     var msg, done = false;
     if (crm.checked && bank.checked){ msg = "That is everything we can see. Nothing deeper exists."; done = true; }
-    else if (crm.checked){ msg = "Add your bank and this becomes " + WORDS[33] + "."; }
-    else if (bank.checked){ msg = "Add your CRM and this becomes " + WORDS[33] + "."; }
-    else { msg = "Connect your CRM and this becomes " + WORDS[22] + "."; }
+    else if (crm.checked){ msg = "Add your bank and this becomes " + WORDS[34] + "."; }
+    else if (bank.checked){ msg = "Add your CRM and this becomes " + WORDS[34] + "."; }
+    else { msg = "Connect your CRM and this becomes " + WORDS[23] + "."; }
     nudgeEl.textContent = msg;
     nudgeEl.classList.toggle("done", done);
 
