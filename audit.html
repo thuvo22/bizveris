@@ -397,7 +397,47 @@
 
     <fieldset>
       <legend>
-        <div class="step"><span class="n">3</span><h2>Where to send it</h2><span class="tag">Required</span></div>
+        <div class="step"><span class="n">3</span><h2>The shape of the business</h2><span class="tag">Optional, and it sharpens the read</span></div>
+        <div class="grid2">
+          <div class="field">
+            <label for="revenue">Roughly what do you do a year? <span class="opt">(optional)</span></label>
+            <select id="revenue" name="revenue_range">
+              <option value="">Rather not say</option>
+              <option>Under $500k</option><option>$500k to $1M</option>
+              <option>$1M to $2M</option><option>$2M to $5M</option>
+              <option>$5M to $10M</option><option>Over $10M</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="crew">How many people work there? <span class="opt">(optional)</span></label>
+            <select id="crew" name="employees">
+              <option value="">Rather not say</option>
+              <option>Just me</option><option>2 to 5</option><option>6 to 15</option>
+              <option>16 to 40</option><option>More than 40</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="jobs">Jobs in a normal month <span class="opt">(optional)</span></label>
+            <input type="text" id="jobs" name="monthly_jobs" inputmode="numeric" placeholder="25">
+          </div>
+          <div class="field">
+            <label for="crmtool">What do you track leads in? <span class="opt">(optional)</span></label>
+            <input type="text" id="crmtool" name="crm_in_use" placeholder="ServiceTitan, Jobber, a notebook">
+          </div>
+          <div class="field wide">
+            <label for="capacity">If twenty percent more work booked next month, what happens? <span class="opt">(optional)</span></label>
+            <select id="capacity" name="capacity">
+              <option value="">Rather not say</option>
+              <option>We could take it comfortably</option>
+              <option>We could take it, it would be tight</option>
+              <option>We would have to hire first</option>
+              <option>It would break the schedule</option>
+            </select>
+            <span class="err">If more work would break you, the constraint is not the one we find.</span>
+          </div>
+        </div>
+
+        <div class="step"><span class="n">4</span><h2>Where to send it</h2><span class="tag">Required</span></div>
       </legend>
       <div class="grid2">
         <div class="field">
@@ -434,7 +474,7 @@
           <span id="submitSub">Eleven checks. No connection needed.</span>
         </button>
       </div>
-      <p class="fineprint">We read it, we run it, and we walk you through what we found on a call. If it does not name at least three revenue leaks you did not already know, say so on that call and we will not ask you for anything.</p>
+      <p class="fineprint">The audit identifies the leak. If you want help, BizVeris can implement the highest value fix over 90 days, establish the baseline, and show you what changed. We read it, we run it, and we walk you through what we found on a call. If it does not name at least three verified revenue leaks you did not already know, say so on that call and we will not ask you for anything.</p>
     </fieldset>
   </form>
 
@@ -681,6 +721,11 @@
       name: $("name").value.trim(),
       email: $("email").value.trim(),
       worst_month: $("worst").value.trim(),
+      revenue_range: $("revenue").value,
+      employees: $("crew").value,
+      monthly_jobs: $("jobs").value.trim(),
+      crm_in_use: $("crmtool").value.trim(),
+      capacity: $("capacity").value,
       connect_crm: crm.checked,
       crm_name: crm.checked ? $("crmName").value : "",
       connect_bank: bank.checked,
