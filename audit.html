@@ -327,7 +327,7 @@
         <div class="field wide">
           <label for="mainline">The phone number customers call</label>
           <input type="tel" id="mainline" name="phone" autocomplete="tel" placeholder="(469) 555 0134">
-          <span class="err">We call this line three times. Nothing happens without it.</span>
+          <span class="err">This is how we test what a customer actually gets. Nothing happens without it.</span>
         </div>
       </div>
     </fieldset>
@@ -413,7 +413,7 @@
           <span class="req">Required</span>
           <label for="consent">
             <input type="checkbox" id="consent" name="consent" required aria-required="true">
-            <span>You have my permission to call the number above three times over the next week, unannounced, and to note what happened.</span>
+            <span>You have my permission to test the customer experience exactly as a real customer would, by calling the number above three times over the next week, and to note what happened each time.</span>
           </label>
           <span class="err">The call test is the whole point. We cannot run it without your say so.</span>
         </div>
@@ -425,7 +425,7 @@
           <span id="submitSub">Eleven checks. No connection needed.</span>
         </button>
       </div>
-      <p class="fineprint">We read it, we run it, and we walk you through what we found on a call. If it does not name at least three things you did not already know, say so on that call and we will not ask you for anything.</p>
+      <p class="fineprint">We read it, we run it, and we walk you through what we found on a call. If it does not name at least three revenue leaks you did not already know, say so on that call and we will not ask you for anything.</p>
     </fieldset>
   </form>
 
@@ -447,7 +447,7 @@
 <div class="pad done-panel" id="done">
   <p class="kicker">Request received</p>
   <h2 class="display" style="margin-top:14px">Now we go <em style="font-style:normal;color:var(--yellow)">looking.</em></h2>
-  <p class="lede" id="doneLede">We have what we need to start. The first thing we do is call your line, so do not be surprised.</p>
+  <p class="lede" id="doneLede">We have what we need to start. The first thing we do is call your line as a customer would, so do not be surprised.</p>
   <div class="next">
     <p class="kicker">What happens next</p>
     <ol>
@@ -489,7 +489,7 @@
       "How many of your pages Google has actually indexed",
       "Whether your site tells Google, in code, that it is your Google listing",
       "Whether your contact form really delivers, tested by us using it",
-      "Three unannounced calls: ring time, who answered, what they said",
+      "Three calls placed the way a customer would: ring time, who answered, what they said",
       "Whether anyone covers evenings and weekends",
       "Whether a missed call gets a text back, or nothing at all",
       "The ads you are running right now, pulled from public ad libraries"
@@ -689,7 +689,7 @@
         ? "We have what we need to start on " + WORDS[payload.checks_unlocked] +
           " checks. We will send the connection links before the call, and you click them yourself while watching."
         : "We have what we need to start on " + WORDS[payload.checks_unlocked] +
-          " checks. The first thing we do is call your line, so do not be surprised.";
+          " checks. The first thing we do is call your line as a customer would, so do not be surprised.";
       if (CALENDAR_URL){
         var b = $("bookBtn"); b.href = CALENDAR_URL; b.style.display = "inline-flex";
       }
