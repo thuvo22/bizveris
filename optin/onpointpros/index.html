@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Text OnPoint Pros | Get a quote</title>
+<meta name="description" content="Send OnPoint Pros your project details and get a text back with a price range. Allen, Texas · North DFW.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bizveris.com/optin/onpointpros/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap">
+<style>
+  :root{
+    --ink:#15171A; --ink-2:#454B52; --ink-3:#767C84;
+    --paper:#FFFFFF; --wash:#F4F5F6; --line:#DFE2E5;
+    --accent:#B3282D; --accent-ink:#FFFFFF;
+    --ok:#1E7B45; --err:#B3282D;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#ECEEF0; --ink-2:#AEB4BB; --ink-3:#848B93;
+      --paper:#15171A; --wash:#1D2024; --line:#2E3238;
+      --ok:#6FCF97; --err:#E08787;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--wash);color:var(--ink);
+       font-family:Archivo,-apple-system,"Helvetica Neue",Arial,sans-serif;
+       font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .wrap{max-width:600px;margin:0 auto;padding:28px 18px 64px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px 22px}
+  .brand{font-weight:800;font-size:1.28rem;letter-spacing:-.01em;margin:0 0 2px}
+  .loc{color:var(--ink-3);font-size:.92rem;margin:0 0 22px}
+  h1{font-size:clamp(1.5rem,5.2vw,1.95rem);line-height:1.18;font-weight:800;
+     letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
+  .sub{color:var(--ink-2);margin:0 0 24px}
+  label{display:block;font-weight:600;font-size:.94rem;margin:0 0 6px}
+  .field{margin-bottom:16px}
+  input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--wash);
+    border:1px solid var(--line);border-radius:10px;padding:12px 13px}
+  input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;background:var(--paper)}
+  textarea{min-height:104px;resize:vertical}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .consent{display:flex;gap:11px;align-items:flex-start;background:var(--wash);
+    border:1px solid var(--line);border-radius:10px;padding:14px;margin:20px 0 18px}
+  .consent input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:var(--accent)}
+  .consent p{margin:0;font-size:.86rem;line-height:1.5;color:var(--ink-2)}
+  button{width:100%;font:inherit;font-weight:800;font-size:1.02rem;letter-spacing:.01em;
+    color:var(--accent-ink);background:var(--accent);border:0;border-radius:10px;
+    padding:15px;cursor:pointer}
+  button:disabled{opacity:.6;cursor:default}
+  .fine{font-size:.8rem;color:var(--ink-3);line-height:1.55;margin:18px 0 0}
+  .fine a{color:var(--ink-2)}
+  .msg{margin:16px 0 0;padding:13px 14px;border-radius:10px;font-size:.93rem;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:rgba(30,123,69,.12);color:var(--ok);border:1px solid currentColor}
+  .msg.err{background:rgba(179,40,45,.10);color:var(--err);border:1px solid currentColor}
+  .terms{margin-top:26px}
+  .terms h2{font-size:.98rem;font-weight:700;margin:0 0 8px}
+  .terms p{font-size:.84rem;color:var(--ink-2);margin:0 0 10px}
+  .terms ul{margin:0 0 10px;padding-left:20px;font-size:.84rem;color:var(--ink-2)}
+  .terms li{margin-bottom:5px}
+  footer{text-align:center;color:var(--ink-3);font-size:.76rem;margin-top:26px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="card">
+    <p class="brand">OnPoint Pros</p>
+    <p class="loc">Allen, Texas · North DFW &middot; (346) 572-5599</p>
+
+    <h1>Text us your project. Get a price range back today.</h1>
+    <p class="sub">Send us what you need done. We text you back with a price range, usually the same day.</p>
+
+    <form id="f" novalidate>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required placeholder="First name is fine">
+      </div>
+      <div class="field">
+        <label for="phone">Mobile number</label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(469) 555-0123">
+      </div>
+      <div class="field">
+        <label for="message">What do you need done?</label>
+        <textarea id="message" name="message" placeholder="Rough description is fine. Address or neighborhood helps."></textarea>
+      </div>
+
+      <div class="hp" aria-hidden="true">
+        <label for="website">Leave this empty</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="consent">
+        <input id="consent" type="checkbox" required>
+        <p id="consentText">By checking this box you agree to receive text messages from OnPoint Pros about your project and estimate at the number provided, including messages sent by an automated system. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time, HELP for help. See our <a href="#terms">SMS terms</a> and <a href="/privacy/">privacy policy</a>.</p>
+      </div>
+
+      <button id="go" type="submit">Send my request</button>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+    </form>
+
+    <p class="fine">Prefer to talk? Call or text (346) 572-5599.</p>
+  </div>
+
+  <div class="card terms" id="terms">
+    <h2>SMS terms</h2>
+    <p><b>Program:</b> OnPoint Pros sends service related text messages to customers who request a quote or service, including estimate follow ups, appointment reminders, payment receipts and review requests.</p>
+    <ul>
+      <li><b>How you opt in:</b> by submitting this form, by calling or texting our business number, or by requesting service through a platform such as Google, Facebook, Nextdoor or Thumbtack and providing your number.</li>
+      <li><b>Message frequency</b> varies depending on your project and inquiry.</li>
+      <li><b>Message and data rates may apply.</b></li>
+      <li><b>To opt out,</b> reply STOP to any message. Reply HELP for help, or contact us at (346) 572-5599 or onpoint.pros.tx@gmail.com.</li>
+      <li><b>Carriers</b> are not liable for delayed or undelivered messages.</li>
+      <li><b>No mobile information is shared with third parties or affiliates for marketing or promotional purposes.</b> Text messaging opt in data and consent are never sold or shared with any third party.</li>
+    </ul>
+    <p>Full details are in our <a href="/privacy/">privacy policy</a>.</p>
+  </div>
+
+  <footer>
+    Operated for OnPoint Pros by BizVeris.<br>
+    <a href="/privacy/">Privacy policy</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var CLIENT = "onpointpros", CONSENT_VERSION = "2026-08-30.1";
+  var API = "https://api.onpointpros.io/optin/submit";
+  var f = document.getElementById("f"), btn = document.getElementById("go"), msg = document.getElementById("msg");
+  function show(kind, text){ msg.className = "msg show " + kind; msg.textContent = text; }
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("name").value.trim();
+    var phone = document.getElementById("phone").value.trim();
+    var consent = document.getElementById("consent").checked;
+    if(!name) return show("err","Please enter your name.");
+    if(phone.replace(/\D/g,"").length < 10) return show("err","Please enter a valid 10 digit mobile number.");
+    if(!consent) return show("err","Please check the box so we are allowed to text you back.");
+    btn.disabled = true; btn.textContent = "Sending...";
+    fetch(API, {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        client_slug: CLIENT, name: name, phone: phone,
+        message: document.getElementById("message").value.trim(),
+        website: document.getElementById("website").value,
+        consent: true,
+        consent_text: document.getElementById("consentText").textContent.trim(),
+        consent_version: CONSENT_VERSION,
+        page_url: location.href
+      })
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if(d && d.ok){
+        f.style.display = "none";
+        show("ok","Got it. We will text you back shortly at the number you gave us.");
+      } else {
+        btn.disabled = false; btn.textContent = "Send my request";
+        show("err", (d && d.error) || "Something went wrong. Please call us instead.");
+      }
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = "Send my request";
+      show("err","Could not send. Please check your connection or call us instead.");
+    });
+  });
+})();
+</script>
+</body>
+</html>
