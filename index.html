@@ -101,6 +101,15 @@
   /* fill the measure instead of leaving a wedge of empty ink at the right */
   .l1,.l2{width:100%}
   .heroSplit{display:block}
+  /* mobile hero: prominent eyebrow, restrained headline, video, then the ask */
+  @media (max-width:899px){
+    .hero-type{text-align:center;padding-top:clamp(14px,2.6vh,26px)}
+    .callout{font-size:clamp(1rem,3.9vw,1.18rem);letter-spacing:.11em;
+             margin-bottom:clamp(12px,2vh,18px)}
+    .l1{font-size:clamp(2.2rem,8.8vw,3.1rem)}
+    .l2{font-size:clamp(2.5rem,10.2vw,3.6rem);margin-top:-.04em}
+    .hero-vid{margin-left:auto;margin-right:auto}
+  }
   @media (min-width:900px){
     .heroSplit{display:flex;align-items:center;gap:clamp(26px,3.2vw,52px)}
     .heroSplit > .hero-type{flex:1 1 54%;min-width:0;padding-top:0}
@@ -1056,6 +1065,10 @@
   function fit(){
     var w = host.clientWidth;
     if(!w) return;
+    if(innerWidth < 900){                 // mobile: fixed scale, not stretched
+      Array.prototype.forEach.call(lines, function(el){ el.style.fontSize = ""; });
+      return;
+    }
     Array.prototype.forEach.call(lines, function(el){
       el.style.fontSize = "";
       var base = parseFloat(getComputedStyle(el).fontSize);
