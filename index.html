@@ -1029,26 +1029,33 @@
 </script>
 
 <script>
-/* Headline: size each line so it fills the column edge to edge. Adjusts the
-   font size (never a transform) so the letterforms keep their real shape. */
+/* Headline: size each line so it fills the column edge to edge.
+   Measured with a Range, because these spans are display:block and their
+   bounding box is always the container width - measuring the box reports a
+   perfect fit while the text still ends short. */
 (function(){
   var host = document.querySelector(".hero-type");
   var lines = document.querySelectorAll(".l1 span, .l2 span");
-  if(!host || !lines.length) return;
+  if(!host || !lines.length || !document.createRange) return;
+  function textWidth(el){
+    var r = document.createRange();
+    r.selectNodeContents(el);
+    return r.getBoundingClientRect().width;
+  }
   function fit(){
     var w = host.clientWidth;
+    if(!w) return;
     Array.prototype.forEach.call(lines, function(el){
-      var parent = el.parentElement;
-      parent.style.fontSize = "";
-      var base = parseFloat(getComputedStyle(parent).fontSize);
-      el.style.fontSize = base + "px";
-      var nat = el.scrollWidth;
-      if(nat > 0) el.style.fontSize = (base * (w / nat)) + "px";
+      el.style.fontSize = "";
+      var base = parseFloat(getComputedStyle(el).fontSize);
+      var nat = textWidth(el);
+      if(nat > 4) el.style.fontSize = (base * (w / nat)) + "px";
     });
   }
   fit();
   addEventListener("resize", fit);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  addEventListener("load", fit);
 })();
 </script>
 </body>
