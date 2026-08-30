@@ -100,6 +100,12 @@
   }
   /* fill the measure instead of leaving a wedge of empty ink at the right */
   .l1,.l2{width:100%}
+  .heroSplit{display:block}
+  @media (min-width:900px){
+    .heroSplit{display:flex;align-items:center;gap:clamp(26px,3.2vw,52px)}
+    .heroSplit > .hero-type{flex:1 1 54%;min-width:0;padding-top:0}
+    .heroSplit > .hero-vid{flex:1 1 46%;min-width:0;margin:0;max-width:none}
+  }
   .l1 span,.l2 span{display:block;white-space:nowrap}
 
   /* readout, offset and overlapping the type */
@@ -497,6 +503,7 @@
       <a href="/audit">Get the free audit</a>
     </div>
 
+    <div class="heroSplit">
     <div class="hero-type">
       <p class="callout">For home service contractors</p>
       <h1 class="display l1"><span>You blamed</span><span>the leads.</span></h1>
@@ -515,6 +522,7 @@
           <span id="pillText" style="font-family:Archivo,sans-serif;font-weight:800;font-size:clamp(.95rem,2.6vw,1.15rem);letter-spacing:.04em;text-transform:uppercase;color:#EDEDE8;text-align:center">Tap for sound</span>
         </span>
       </button>
+    </div>
     </div>
   </div>
 
@@ -1049,7 +1057,11 @@
       el.style.fontSize = "";
       var base = parseFloat(getComputedStyle(el).fontSize);
       var nat = textWidth(el);
-      if(nat > 4) el.style.fontSize = (base * (w / nat)) + "px";
+      if(nat <= 4) return;
+      var size = base * (w / nat);
+      el.style.fontSize = size + "px";
+      var after = textWidth(el);          // correct the 1% the first pass leaves
+      if(after > 4) el.style.fontSize = (size * (w / after)) + "px";
     });
   }
   fit();
