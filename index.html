@@ -90,12 +90,12 @@
   }
 
   .hero-type{
-    position:relative;z-index:2;padding-top:clamp(30px,7vh,80px);
+    position:relative;z-index:2;padding-top:clamp(18px,3.5vh,44px);
     pointer-events:none;
   }
-  .l1{font-size:clamp(4.6rem,min(18.8vw,12vh),11rem);color:var(--onink)}
+  .l1{font-size:clamp(2.9rem,min(12vw,7.6vh),6.6rem);color:var(--onink)}
   .l2{
-    font-size:clamp(5.8rem,min(23.5vw,15vh),14.5rem);color:var(--yellow);
+    font-size:clamp(3.6rem,min(15vw,9.4vh),8.6rem);color:var(--yellow);
     margin-top:-.06em;margin-left:clamp(0px,7vw,120px);
   }
 
@@ -499,6 +499,13 @@
       <h1 class="display l1">You blamed<br>the leads.</h1>
       <p class="display l2">It wasn't<br>the leads.</p>
     </div>
+
+    <div class="hero-vid" style="max-width:min(100%,calc(52svh*1.7778));margin:clamp(14px,2.4vh,26px) auto 0">
+      <video controls playsinline preload="metadata" poster="/vsl-poster.jpg"
+             style="width:100%;display:block;background:#000;border:1px solid #2E2E29">
+        <source src="/bizveris-vsl.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 
   <div class="pad">
@@ -530,17 +537,6 @@
     <div class="hero-cta">
       <a class="slab" href="/audit">Get your free revenue leak audit<span>60 seconds. Nothing to connect.</span></a>
     </div>
-  </div>
-</div>
-
-<!-- ==================== VSL ==================== -->
-<div class="field ink" style="padding:clamp(52px,8vh,96px) 0">
-  <div class="pad">
-    <p class="kicker">If you would rather hear it than read it</p>
-    <video controls playsinline preload="metadata" poster="/vsl-poster.jpg"
-           style="width:100%;background:#000;border:1px solid #2E2E29;display:block">
-      <source src="/bizveris-vsl.mp4" type="video/mp4">
-    </video>
   </div>
 </div>
 
