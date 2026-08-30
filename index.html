@@ -96,8 +96,11 @@
   .l1{font-size:clamp(2.9rem,min(12vw,7.6vh),6.6rem);color:var(--onink)}
   .l2{
     font-size:clamp(3.6rem,min(15vw,9.4vh),8.6rem);color:var(--yellow);
-    margin-top:-.06em;margin-left:clamp(0px,7vw,120px);
+    margin-top:-.06em;margin-left:0;
   }
+  /* fill the measure instead of leaving a wedge of empty ink at the right */
+  .l1,.l2{width:100%}
+  .l1 span,.l2 span{display:block;white-space:nowrap;transform-origin:left center;will-change:transform}
 
   /* readout, offset and overlapping the type */
   .stamp{
@@ -496,8 +499,8 @@
 
     <div class="hero-type">
       <p class="callout">For home service contractors</p>
-      <h1 class="display l1">You blamed<br>the leads.</h1>
-      <p class="display l2">It wasn't<br>the leads.</p>
+      <h1 class="display l1"><span>You blamed</span><span>the leads.</span></h1>
+      <p class="display l2"><span>It wasn't</span><span>the leads.</span></p>
     </div>
 
     <div class="hero-vid" id="vidWrap" style="max-width:min(100%,calc(52svh*1.7778));margin:clamp(14px,2.4vh,26px) auto 0;position:relative;pointer-events:auto">
@@ -1022,6 +1025,28 @@
   if(p && p.catch) p.catch(function(){
     document.getElementById("pillText").textContent = "Tap to play";
   });
+})();
+</script>
+
+<script>
+/* Headline: scale each line so it fills the column edge to edge, no wedge of
+   empty ink at the right. Re-runs on resize and once the display face loads. */
+(function(){
+  var lines = document.querySelectorAll(".l1 span, .l2 span");
+  if(!lines.length) return;
+  function fit(){
+    var host = document.querySelector(".hero-type");
+    if(!host) return;
+    var w = host.clientWidth;
+    Array.prototype.forEach.call(lines, function(el){
+      el.style.transform = "none";
+      var nat = el.getBoundingClientRect().width;
+      if(nat > 0) el.style.transform = "scaleX(" + (w / nat) + ")";
+    });
+  }
+  fit();
+  addEventListener("resize", fit);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 })();
 </script>
 </body>
