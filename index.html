@@ -105,6 +105,9 @@
     .heroSplit{display:flex;align-items:center;gap:clamp(26px,3.2vw,52px)}
     .heroSplit > .hero-type{flex:1 1 54%;min-width:0;padding-top:0}
     .heroSplit > .hero-vid{flex:1 1 46%;min-width:0;margin:0;max-width:none}
+    /* the readout overlaps the type by design, but that offset was tuned for a
+       smaller headline; with the fitted type it collides, so clear it here */
+    .stamp{margin-top:clamp(12px,1.8vh,26px);max-width:940px}
   }
   .l1 span,.l2 span{display:block;white-space:nowrap}
 
