@@ -207,19 +207,18 @@
   }
   .slab{
     text-decoration:none;background:var(--yellow);color:var(--ink);
-    padding:clamp(17px,2.4vh,22px) 30px;line-height:1.1;
+    padding:clamp(20px,2.9vh,27px) 34px;line-height:1.05;border-radius:14px;
     font-family:"Big Shoulders Display","Arial Narrow",sans-serif;
     font-weight:800;text-transform:uppercase;letter-spacing:.02em;
     font-size:clamp(1.5rem,5.6vw,1.95rem);
     display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;
-    box-shadow:5px 5px 0 rgba(255,212,0,.24);
     transition:transform .12s ease, box-shadow .12s ease;
   }
-  .slab span{
-    font-family:Archivo,sans-serif;font-size:.72rem;font-weight:600;
-    text-transform:none;letter-spacing:.01em;opacity:.62;
+  .cta-note{
+    font-family:Archivo,sans-serif;font-size:.82rem;font-weight:500;
+    color:var(--onink-2);margin:10px 0 0;text-align:center;
   }
-  .slab:hover,.slab:focus-visible{transform:translate(-3px,-3px);box-shadow:9px 9px 0 rgba(255,212,0,.32)}
+  .slab:hover,.slab:focus-visible{transform:translateY(-2px);filter:brightness(1.06)}
   .slab.hollow{background:transparent;color:var(--onink);box-shadow:inset 0 0 0 2px #33352F}
   .slab.hollow:hover,.slab.hollow:focus-visible{box-shadow:inset 0 0 0 2px var(--onink)}
   .slab.dark{background:var(--ink);color:var(--yellow)}
@@ -502,7 +501,7 @@
   @media (max-width:760px){
     .l2{margin-left:0}
     .stamp{margin-top:6px}
-    .slab{width:100%;padding:15px 24px}
+    .slab{width:100%}
     /* the rotator reserves height so rotating cards do not jump the layout.
        on a phone that reserve is what pushes the CTAs off the fold, and the
        cards are short enough there that the jump is not worth the cost. */
@@ -553,8 +552,9 @@
     <p class="hero-say">It is a free read across your ads, your phones, your follow up, your books and your listing. You get <strong>at least three verified revenue leaks</strong>, the evidence sitting under each one, and which to fix first.</p>
 
     <div class="hero-cta">
-      <a class="slab" href="/audit">Show me my leaks<span>60 seconds. Nothing to connect.</span></a>
+      <a class="slab" href="/audit">Show me my leaks</a>
     </div>
+    <p class="cta-note">60 seconds. Nothing to connect.</p>
   </div>
 
   <div class="pad">
@@ -819,7 +819,7 @@
     <h2 class="display" style="font-size:clamp(2.6rem,8.4vw,6.6rem);max-width:14ch">Find out what one bad month actually cost you.</h2>
     <p class="attrib" style="max-width:54ch"><b>The first read is free to find out.</b> If it does not name at least three verified revenue leaks you did not already know, you do not pay for it. That is the whole risk.</p>
     <div class="hero-cta">
-      <a class="slab dark" href="/audit">Get your free revenue leak audit<span>60 seconds. Nothing to connect.</span></a>
+      <a class="slab dark" href="/audit">Show me my leaks</a>
     </div>
   </div>
 </div>
