@@ -566,24 +566,24 @@
   <div class="pad">
     <div class="stamp">
       <div class="finding" id="finding" aria-live="off">
-        <span class="dom fade" id="fDom">Marketing</span>
+        <span class="dom fade" id="fDom">Your phones</span>
         <div class="gauge">
-          <span class="lab fade" id="fLab">Leads per day from your best paid source</span>
+          <span class="lab fade" id="fLab">Missed callers who ever call you back</span>
           <span class="val fade" id="fVal">
-            <span class="was" id="was">2.1</span>
-            <span class="now" id="now">0.4</span>
+            <span class="was" id="was">10</span>
+            <span class="now" id="now">1.5</span>
           </span>
         </div>
-        <p class="cause fade" id="fCause">It ran dry for two weeks. Not demand. A login had quietly expired and nothing told you.</p>
+        <p class="cause fade" id="fCause">Miss a call and 85 percent never try again. They just dial the next contractor.</p>
         <div class="pips" id="pips" aria-hidden="true"></div>
       </div>
 
       <!-- reduced-motion and no-JS readers get all four at once -->
       <div class="allfour" id="allfour">
-        <div class="row"><span class="dom">Marketing</span><p>Your best paid source ran dry for two weeks. A login had expired and nothing told you.</p></div>
+        <div class="row"><span class="dom">Your phones</span><p>Miss a call and 85 percent of callers never try again. They dial the next contractor.</p></div>
         <div class="row"><span class="dom">Sales</span><p>Nobody said your company name on four of your last five inbound calls.</p></div>
         <div class="row"><span class="dom">Follow up</span><p>Nine quotes over $10,000 went cold without a second call.</p></div>
-        <div class="row"><span class="dom">Your numbers</span><p>Fourteen booked jobs were never marked won. The month read worse than it was.</p></div>
+        <div class="row"><span class="dom">Your listing</span><p>A settings bug hid 58 real five star reviews from the city they were earned in.</p></div>
       </div>
 
       <p class="subline">The cause is in your ads, your phones, your follow up, your books or your listing. <b>It is rarely the one you think</b>, and nothing you own can see across all five.</p>
@@ -838,14 +838,14 @@
   // Four real findings, one from each place a cause can hide. The hero
   // rotates them so the range lands before anyone scrolls.
   var FINDINGS = [
-    {dom:"Marketing",   lab:"Leads per day from your best paid source", was:"2.1", now:"0.4",
-     cause:"It ran dry for two weeks. Not demand. A login had quietly expired and nothing told you."},
+    {dom:"Your phones", lab:"Missed callers who ever call you back", was:"10", now:"1.5",
+     cause:"Miss a call and 85 percent never try again. They just dial the next contractor."},
     {dom:"Sales",       lab:"Calls that opened with your company name", was:"5 of 5", now:"1 of 5",
      cause:"One customer called you by the wrong name on the recording. Nobody on the team heard it."},
     {dom:"Follow up",   lab:"Quotes over $10,000 that got a second call", was:"9", now:"0",
      cause:"They did not say no. Nobody called them back, and the file just went quiet."},
-    {dom:"Your numbers",lab:"Booked jobs actually marked won", was:"17", now:"3",
-     cause:"Fourteen jobs never got promoted in the system. The month read far worse than it really was."}
+    {dom:"Your listing",lab:"Five star reviews customers could actually see", was:"58", now:"0",
+     cause:"A settings bug made the listing invisible in its own city. The reviews were real. Nobody could find them."}
   ];
 
   var finding = document.getElementById("finding");
