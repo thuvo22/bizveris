@@ -244,6 +244,22 @@
   ul.checks .grp:first-child{padding-top:4px}
 
   /* ---------------- submit ---------------- */
+  .arc{
+    margin:22px 0 0;padding:0;list-style:none;counter-reset:arc;
+    display:flex;flex-direction:column;gap:12px;max-width:62ch;
+  }
+  .arc li{
+    counter-increment:arc;position:relative;padding-left:40px;
+    font-size:.95rem;line-height:1.5;color:var(--onink-2);
+  }
+  .arc li b{color:var(--onink)}
+  .arc li::before{
+    content:counter(arc);position:absolute;left:0;top:1px;
+    width:26px;height:26px;border-radius:50%;
+    background:var(--yellow);color:var(--ink);
+    font-weight:800;font-size:.82rem;
+    display:flex;align-items:center;justify-content:center;
+  }
   .slab{
     display:inline-flex;flex-direction:column;gap:3px;align-items:flex-start;
     text-decoration:none;background:var(--yellow);color:var(--ink);border:0;
@@ -287,6 +303,12 @@
   <p class="kicker">Request an audit</p>
   <h1 class="display" style="margin-top:14px">Tell us what we<br><em>can look at.</em></h1>
   <p class="lede">Every audit starts with what is already public, and that alone is worth eleven checks. Connect more and we can see more. You decide how deep this goes.</p>
+
+  <ol class="arc" aria-label="How the audit works">
+    <li><b>Sixty seconds now.</b> This form. Public information only, nothing to connect, no passwords.</li>
+    <li><b>We go looking.</b> Over a few days we run every check you unlocked, including calling your line the way a customer would.</li>
+    <li><b>One call, forty five minutes.</b> Anything you chose to connect happens live on that call while you watch. Then we walk you through what we found, worst first, with the evidence under each finding.</li>
+  </ol>
 </div>
 
 <div class="pad cols">
@@ -474,7 +496,7 @@
           <span id="submitSub">Eleven checks. No connection needed.</span>
         </button>
       </div>
-      <p class="fineprint">The audit identifies the leak. If you want help, BizVeris can implement the highest value fix over 90 days, establish the baseline, and show you what changed. We read it, we run it, and we walk you through what we found on a call. If it does not name at least three verified revenue leaks you did not already know, say so on that call and we will not ask you for anything.</p>
+      <p class="fineprint">The audit identifies the leak. Fixing it is a separate conversation, scoped and priced only after the diagnosis, and only if you want the help. Some of what we find is yours to fix in an afternoon, and if it is we will say so. If the read does not name at least three verified revenue leaks you did not already know, say so on the call and we will not ask you for anything.</p>
     </fieldset>
   </form>
 
@@ -502,7 +524,7 @@
     <ol>
       <li>We run every check you unlocked. That takes a few days, and three of those days include a call to your line.</li>
       <li>You get a time to talk. Forty five minutes, and we do any setup live while you watch.</li>
-      <li>We walk you through what we found, worst first.</li>
+      <li>We walk you through what we found, worst first. If something is worth fixing and you want help, we scope that at the end of the same call. If not, the read is still yours.</li>
     </ol>
     <a class="slab" id="bookBtn" href="#" style="display:none">Pick a time now<span>Forty five minutes. We do the setup.</span></a>
   </div>
