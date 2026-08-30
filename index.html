@@ -100,7 +100,7 @@
   }
   /* fill the measure instead of leaving a wedge of empty ink at the right */
   .l1,.l2{width:100%}
-  .l1 span,.l2 span{display:block;white-space:nowrap;transform-origin:left center;will-change:transform}
+  .l1 span,.l2 span{display:block;white-space:nowrap}
 
   /* readout, offset and overlapping the type */
   .stamp{
@@ -1029,19 +1029,21 @@
 </script>
 
 <script>
-/* Headline: scale each line so it fills the column edge to edge, no wedge of
-   empty ink at the right. Re-runs on resize and once the display face loads. */
+/* Headline: size each line so it fills the column edge to edge. Adjusts the
+   font size (never a transform) so the letterforms keep their real shape. */
 (function(){
+  var host = document.querySelector(".hero-type");
   var lines = document.querySelectorAll(".l1 span, .l2 span");
-  if(!lines.length) return;
+  if(!host || !lines.length) return;
   function fit(){
-    var host = document.querySelector(".hero-type");
-    if(!host) return;
     var w = host.clientWidth;
     Array.prototype.forEach.call(lines, function(el){
-      el.style.transform = "none";
-      var nat = el.getBoundingClientRect().width;
-      if(nat > 0) el.style.transform = "scaleX(" + (w / nat) + ")";
+      var parent = el.parentElement;
+      parent.style.fontSize = "";
+      var base = parseFloat(getComputedStyle(parent).fontSize);
+      el.style.fontSize = base + "px";
+      var nat = el.scrollWidth;
+      if(nat > 0) el.style.fontSize = (base * (w / nat)) + "px";
     });
   }
   fit();
