@@ -101,7 +101,12 @@
   /* fill the measure instead of leaving a wedge of empty ink at the right */
   .l1,.l2{width:100%}
   .heroSplit{display:block}
-  .hero-cta{margin-top:clamp(16px,2.4vh,28px)}
+  .hero-cta{margin-top:clamp(14px,2vh,24px)}
+  .hero-say{
+    max-width:56ch;margin:clamp(14px,2.2vh,24px) auto 0;
+    font-size:clamp(.98rem,2.9vw,1.1rem);line-height:1.5;color:var(--onink-2);
+  }
+  .hero-say strong{color:var(--onink);font-weight:700}
   /* mobile hero: prominent eyebrow, restrained headline, video, then the ask */
   @media (max-width:899px){
     .hero-type{text-align:center;padding-top:clamp(20px,3.4vh,34px)}
@@ -110,7 +115,7 @@
     /* the .82 display leading collapses the lines at this size; give them air */
     .l1,.l2{line-height:.96}
     .hero-vid{margin-left:auto;margin-right:auto}
-    .stamp{margin-top:clamp(18px,3vh,32px)}
+
   }
   @media (min-width:900px){
     .heroSplit{display:flex;align-items:center;gap:clamp(26px,3.2vw,52px)}
@@ -118,13 +123,13 @@
     .heroSplit > .hero-vid{flex:1 1 46%;min-width:0;margin:0;max-width:none}
     /* the readout overlaps the type by design, but that offset was tuned for a
        smaller headline; with the fitted type it collides, so clear it here */
-    .stamp{margin-top:clamp(12px,1.8vh,26px);max-width:940px}
+    .stamp{max-width:1040px}
   }
   .l1 span,.l2 span{display:block;white-space:nowrap}
 
   /* readout, offset and overlapping the type */
   .stamp{
-    position:relative;z-index:4;margin-top:clamp(-30px,-3vh,-14px);
+    position:relative;z-index:4;margin-top:0;
     display:flex;flex-wrap:wrap;align-items:flex-end;gap:clamp(20px,4vw,54px);
   }
 
@@ -537,11 +542,19 @@
       </button>
     </div>
     </div>
+    <p class="hero-say">It is a free read across your ads, your phones, your follow up, your books and your listing. You get <strong>at least three verified revenue leaks</strong>, the evidence sitting under each one, and which to fix first.</p>
+
     <div class="hero-cta">
-      <a class="slab" href="/audit">Get your free revenue leak audit<span>60 seconds. Nothing to connect.</span></a>
+      <a class="slab" href="/audit">Show me my leaks<span>60 seconds. Nothing to connect.</span></a>
     </div>
   </div>
 
+  <div class="pad">
+  </div>
+</div>
+
+<!-- ==================== THE READOUT ==================== -->
+<div class="field ink" style="padding:clamp(44px,7vh,84px) 0">
   <div class="pad">
     <div class="stamp">
       <div class="finding" id="finding" aria-live="off">
@@ -567,7 +580,6 @@
 
       <p class="subline">The cause is in your ads, your phones, your follow up, your books or your listing. <b>It is rarely the one you think</b>, and nothing you own can see across all five.</p>
     </div>
-
   </div>
 </div>
 
