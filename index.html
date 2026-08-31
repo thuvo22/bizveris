@@ -441,6 +441,57 @@
   .fine{font-size:.78rem;color:var(--onink-2);margin-top:22px}
   .field.concrete .fine{color:#6E6E67}
 
+  /* ============ DESKTOP LAYOUTS ============ */
+  /* every section below the hero was authored as one phone column; on a
+     desktop canvas each one gets a real two-column composition instead of
+     sitting in the left half of an empty band. */
+  .land{max-width:74ch}
+  @media (min-width:900px){
+    /* readout: gauge left, verdict line right, vertically centered */
+    .stamp{justify-content:space-between;align-items:center;margin:0 auto}
+    .subline{max-width:34ch;font-size:1.1rem}
+
+    /* the sentence: quote left, attribution right, feet on the same line */
+    .sent{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+          column-gap:clamp(48px,6vw,96px);align-items:end}
+    .sent .kicker{grid-column:1/-1}
+    .sent .attrib{margin-top:0}
+
+    /* convergence: copy left, diagram right */
+    .conv{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+          column-gap:clamp(40px,5vw,80px);align-items:center}
+    .conv > div{grid-column:1}
+    .conv .body{grid-column:1;grid-row:2;align-self:start}
+    .conv .diagram.wide{grid-column:2;grid-row:1/3}
+
+    /* what it is not: 2x2, headers at column scale instead of page scale */
+    .struck{display:grid;grid-template-columns:1fr 1fr;
+            gap:clamp(40px,6vh,64px) clamp(48px,6vw,90px)}
+    .sx .no{font-size:clamp(2.4rem,3.4vw,3.6rem)}
+    .sx p{max-width:44ch}
+
+    /* proof: the story reads down the left, the voice and receipts sit right */
+    .proof-wrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+                column-gap:clamp(48px,6vw,96px);align-items:start;
+                grid-template-areas:"k k" "lead quote" "body shots" "body2 shots"}
+    .proof-wrap .kicker{grid-area:k}
+    .proof-wrap .proof-lead{grid-area:lead}
+    .proof-wrap > .proof-body{grid-area:body}
+    .proof-wrap > .proof-body:last-child{grid-area:body2}
+    .proof-wrap .fquote{grid-area:quote}
+    .proof-wrap .receipt{grid-area:shots}
+
+    /* founder: the evidence photos at evidence size */
+    .credential{max-width:none;align-items:center}
+    .cred-shot{height:clamp(200px,24vh,260px)}
+    .cred-copy p{max-width:56ch}
+
+    /* close: centered, answering the hero */
+    .closing{text-align:center}
+    .closing h2{margin-left:auto;margin-right:auto}
+    .closing .attrib{margin-left:auto;margin-right:auto}
+  }
+
   /* ============ MOTION LAYER ============ */
   /* merged forward from the polish pass published on v2:
      sticky bar, staggered scroll reveals, hover feedback, one sheen */
@@ -597,7 +648,7 @@
 
 <!-- ==================== THE SENTENCE ==================== -->
 <div class="field yellow">
-  <div class="pad">
+  <div class="pad sent">
     <p class="kicker">What lands in your inbox on the first</p>
     <p class="sentence">"Nine quotes over $10,000 went cold without a second call."</p>
     <p class="attrib"><b>That is the product.</b> Not a chart, not a login, not a weekly digest you stop opening. One cause, in one sentence, with the evidence sitting under it so you can check us. Some months the cause is your advertising. Some months it is a call nobody listened back to, or a number your own software got wrong. Illustrative example.</p>
@@ -818,7 +869,7 @@
 
 <!-- ==================== CLOSE ==================== -->
 <div class="field yellow" id="start">
-  <div class="pad">
+  <div class="pad closing">
     <p class="kicker">Start here</p>
     <h2 class="display" style="font-size:clamp(2.6rem,8.4vw,6.6rem);max-width:14ch">Find out what one bad month actually cost you.</h2>
     <p class="attrib" style="max-width:54ch"><b>The first read is free to find out.</b> If it does not name at least three verified revenue leaks you did not already know, you do not pay for it. That is the whole risk.</p>
