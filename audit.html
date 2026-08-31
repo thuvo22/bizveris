@@ -307,7 +307,7 @@
   <ol class="arc" aria-label="How the audit works">
     <li><b>Sixty seconds now.</b> This form. Public information only, nothing to connect, no passwords.</li>
     <li><b>We go looking.</b> Over a few days we run every check you unlocked, including calling your line the way a customer would.</li>
-    <li><b>One call, forty five minutes.</b> Anything you chose to connect happens live on that call while you watch. Then we walk you through what we found, worst first, with the evidence under each finding.</li>
+    <li><b>One call, thirty minutes.</b> Anything you chose to connect happens live on that call while you watch. Then we walk you through what we found, worst first, with the evidence under each finding.</li>
   </ol>
 </div>
 
@@ -521,12 +521,12 @@
   <p class="lede" id="doneLede">We have what we need to start. The first thing we do is call your line as a customer would, so do not be surprised.</p>
   <div class="next">
     <p class="kicker">What happens next</p>
-    <ol>
+    <ol id="doneSteps">
       <li>We run every check you unlocked. That takes a few days, and three of those days include a call to your line.</li>
-      <li>You get a time to talk. Forty five minutes, and we do any setup live while you watch.</li>
+      <li id="stepCall">You get a time to talk. Thirty minutes, and we do any setup live while you watch.</li>
       <li>We walk you through what we found, worst first. If something is worth fixing and you want help, we scope that at the end of the same call. If not, the read is still yours.</li>
     </ol>
-    <a class="slab" id="bookBtn" href="#" style="display:none">Pick a time now<span>Forty five minutes. We do the setup.</span></a>
+    <a class="slab" id="bookBtn" href="#" style="display:none">Pick a time now<span>Thirty minutes. We do the setup.</span></a>
   </div>
 </div>
 
@@ -774,11 +774,32 @@
       document.querySelector(".head").style.display = "none";
       var d = $("done");
       d.style.display = "block";
-      $("doneLede").textContent = payload.connect_crm || payload.connect_bank
+      var connected = payload.connect_crm || payload.connect_bank;
+      $("doneLede").textContent = connected
         ? "We have what we need to start on " + WORDS[payload.checks_unlocked] +
           " checks. We will send the connection links before the call, and you click them yourself while watching."
         : "We have what we need to start on " + WORDS[payload.checks_unlocked] +
           " checks. The first thing we do is call your line as a customer would, so do not be surprised.";
+
+      /* the steps reflect what THEY chose, not a generic list */
+      var crmSel = $("crmName") ? $("crmName").value : "";
+      var noCrm = (!payload.connect_crm) && (crmSel === "Nothing yet" || crmSel === "A spreadsheet");
+      var steps = [];
+      steps.push("We run every check you unlocked. That takes a few days, and three of those days include a call to your line.");
+      if (connected){
+        var what = payload.connect_crm && payload.connect_bank ? "your CRM and your bank"
+                 : payload.connect_crm ? "your CRM" : "your bank";
+        steps.push("You get a time to talk. Thirty minutes. Connecting " + what +
+                   " happens live on that call, you watching, read only, and we read it on the spot.");
+      } else {
+        steps.push("You get a time to talk. Thirty minutes to walk the findings.");
+      }
+      steps.push("We walk you through what we found, worst first. If something is worth fixing and you want help, we scope that at the end of the same call. If not, the read is still yours.");
+      if (noCrm){
+        steps.push("No CRM is common and not a problem. If we end up working together, recording starts on day one with a tracking number in front of your existing line. Nothing ports, nothing changes for your customers, and your first full read lands about thirty days later with its own before and after.");
+      }
+      var ol = $("doneSteps");
+      if (ol){ ol.innerHTML = ""; steps.forEach(function(t){ var li=document.createElement("li"); li.textContent=t; ol.appendChild(li); }); }
       if (CALENDAR_URL){
         var b = $("bookBtn"); b.href = CALENDAR_URL; b.style.display = "inline-flex";
       }
