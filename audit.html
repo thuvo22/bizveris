@@ -302,7 +302,7 @@
 <div class="pad head">
   <p class="kicker">Request an audit</p>
   <h1 class="display" style="margin-top:14px">Tell us what we<br><em>can look at.</em></h1>
-  <p class="lede">Every audit starts with what is already public, and that alone is worth eleven checks. Connect more and we can see more. You decide how deep this goes.</p>
+  <p class="lede">The free audit reads what is already public and names <b>at least three verified revenue risks</b> from that alone. It is not a full diagnosis of your business. The full read needs data, and whether we go there is your call, on the call.</p>
 
   <ol class="arc" aria-label="How the audit works">
     <li><b>Sixty seconds now.</b> This form. Public information only, nothing to connect, no passwords.</li>
@@ -363,9 +363,102 @@
       </div>
     </fieldset>
 
+
     <fieldset>
       <legend>
-        <div class="step"><span class="n">2</span><h2>What we can connect</h2><span class="tag">Optional</span></div>
+        <div class="step"><span class="n">2</span><h2>The shape of the business</h2><span class="tag">Optional, and it sharpens the read</span></div>
+        <div class="grid2">
+          <div class="field">
+            <label for="revenue">Roughly what do you do a year? <span class="opt">(optional)</span></label>
+            <select id="revenue" name="revenue_range">
+              <option value="">Rather not say</option>
+              <option>Under $500k</option><option>$500k to $1M</option>
+              <option>$1M to $2M</option><option>$2M to $5M</option>
+              <option>$5M to $10M</option><option>Over $10M</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="crew">How many people work there? <span class="opt">(optional)</span></label>
+            <select id="crew" name="employees">
+              <option value="">Rather not say</option>
+              <option>Just me</option><option>2 to 5</option><option>6 to 15</option>
+              <option>16 to 40</option><option>More than 40</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="jobs">Jobs in a normal month <span class="opt">(optional)</span></label>
+            <input type="text" id="jobs" name="monthly_jobs" inputmode="numeric" placeholder="25">
+          </div>
+          <div class="field">
+            <label for="crmtool">What do you track leads in? <span class="opt">(optional)</span></label>
+            <input type="text" id="crmtool" name="crm_in_use" placeholder="ServiceTitan, Jobber, a notebook">
+          </div>
+          <div class="field wide">
+            <label for="capacity">If twenty percent more work booked next month, what happens? <span class="opt">(optional)</span></label>
+            <select id="capacity" name="capacity">
+              <option value="">Rather not say</option>
+              <option>We could take it comfortably</option>
+              <option>We could take it, it would be tight</option>
+              <option>We would have to hire first</option>
+              <option>It would break the schedule</option>
+            </select>
+            <span class="err">If more work would break you, the constraint is not the one we find.</span>
+          </div>
+          <div class="field wide">
+            <label for="concern">What worries you most right now? <span class="opt">(optional)</span></label>
+            <select id="concern" name="biggest_concern">
+              <option value="">Rather not say</option>
+              <option>Not enough leads</option>
+              <option>Leads that never book</option>
+              <option>Sales calls not closing</option>
+              <option>Follow up falling through</option>
+              <option>Revenue fine, margin thin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="step"><span class="n">4</span><h2>Where to send it</h2><span class="tag">Required</span></div>
+      </legend>
+      <div class="grid2">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" placeholder="Thu">
+          <span class="err">Who are we talking to?</span>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@yourcompany.com">
+          <span class="err">We need somewhere to send the read.</span>
+        </div>
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+          <label for="company_url">Leave this blank</label>
+          <input type="text" id="company_url" name="company_url" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="field wide">
+          <label for="worst">What was your worst month this year, and what do you think caused it? <span class="opt">(optional, and the most useful box on this page)</span></label>
+          <textarea id="worst" name="worst" placeholder="August. I think the leads got worse."></textarea>
+        </div>
+        <div class="field wide consent-box" id="consentBox">
+          <span class="req">Required</span>
+          <label for="consent">
+            <input type="checkbox" id="consent" name="consent" required aria-required="true">
+            <span>You have my permission to test the customer experience exactly as a real customer would, by calling the number above three times over the next week, and to note what happened each time.</span>
+          </label>
+          <span class="err">The call test is the whole point. We cannot run it without your say so.</span>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;max-width:420px">
+        <button class="slab" type="submit" id="submitBtn">
+          Request the audit
+          <span id="submitSub">Eleven checks. No connection needed.</span>
+        </button>
+      </div>
+      <p class="fineprint">The audit identifies the leak. Fixing it is a separate conversation, scoped and priced only after the diagnosis, and only if you want the help. Some of what we find is yours to fix in an afternoon, and if it is we will say so. If the read does not name at least three verified revenue risks you did not already know, say so on the call and we will not ask you for anything.</p>
+    </fieldset>
+    <fieldset>
+      <legend>
+        <div class="step"><span class="n">3</span><h2>What we could read on the call</h2><span class="tag">Optional, never required</span></div>
       </legend>
 
       <div class="conn" id="connCrm">
@@ -414,89 +507,7 @@
         </div>
       </div>
 
-      <p class="fineprint">Ticking a box here does not connect anything. It tells us what to prepare, and what the read can cover.</p>
-    </fieldset>
-
-    <fieldset>
-      <legend>
-        <div class="step"><span class="n">3</span><h2>The shape of the business</h2><span class="tag">Optional, and it sharpens the read</span></div>
-        <div class="grid2">
-          <div class="field">
-            <label for="revenue">Roughly what do you do a year? <span class="opt">(optional)</span></label>
-            <select id="revenue" name="revenue_range">
-              <option value="">Rather not say</option>
-              <option>Under $500k</option><option>$500k to $1M</option>
-              <option>$1M to $2M</option><option>$2M to $5M</option>
-              <option>$5M to $10M</option><option>Over $10M</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="crew">How many people work there? <span class="opt">(optional)</span></label>
-            <select id="crew" name="employees">
-              <option value="">Rather not say</option>
-              <option>Just me</option><option>2 to 5</option><option>6 to 15</option>
-              <option>16 to 40</option><option>More than 40</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="jobs">Jobs in a normal month <span class="opt">(optional)</span></label>
-            <input type="text" id="jobs" name="monthly_jobs" inputmode="numeric" placeholder="25">
-          </div>
-          <div class="field">
-            <label for="crmtool">What do you track leads in? <span class="opt">(optional)</span></label>
-            <input type="text" id="crmtool" name="crm_in_use" placeholder="ServiceTitan, Jobber, a notebook">
-          </div>
-          <div class="field wide">
-            <label for="capacity">If twenty percent more work booked next month, what happens? <span class="opt">(optional)</span></label>
-            <select id="capacity" name="capacity">
-              <option value="">Rather not say</option>
-              <option>We could take it comfortably</option>
-              <option>We could take it, it would be tight</option>
-              <option>We would have to hire first</option>
-              <option>It would break the schedule</option>
-            </select>
-            <span class="err">If more work would break you, the constraint is not the one we find.</span>
-          </div>
-        </div>
-
-        <div class="step"><span class="n">4</span><h2>Where to send it</h2><span class="tag">Required</span></div>
-      </legend>
-      <div class="grid2">
-        <div class="field">
-          <label for="name">Your name</label>
-          <input type="text" id="name" name="name" autocomplete="name" placeholder="Thu">
-          <span class="err">Who are we talking to?</span>
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@yourcompany.com">
-          <span class="err">We need somewhere to send the read.</span>
-        </div>
-        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
-          <label for="company_url">Leave this blank</label>
-          <input type="text" id="company_url" name="company_url" tabindex="-1" autocomplete="off">
-        </div>
-        <div class="field wide">
-          <label for="worst">What was your worst month this year, and what do you think caused it? <span class="opt">(optional, and the most useful box on this page)</span></label>
-          <textarea id="worst" name="worst" placeholder="August. I think the leads got worse."></textarea>
-        </div>
-        <div class="field wide consent-box" id="consentBox">
-          <span class="req">Required</span>
-          <label for="consent">
-            <input type="checkbox" id="consent" name="consent" required aria-required="true">
-            <span>You have my permission to test the customer experience exactly as a real customer would, by calling the number above three times over the next week, and to note what happened each time.</span>
-          </label>
-          <span class="err">The call test is the whole point. We cannot run it without your say so.</span>
-        </div>
-      </div>
-
-      <div style="margin-top:24px;max-width:420px">
-        <button class="slab" type="submit" id="submitBtn">
-          Request the audit
-          <span id="submitSub">Eleven checks. No connection needed.</span>
-        </button>
-      </div>
-      <p class="fineprint">The audit identifies the leak. Fixing it is a separate conversation, scoped and priced only after the diagnosis, and only if you want the help. Some of what we find is yours to fix in an afternoon, and if it is we will say so. If the read does not name at least three verified revenue leaks you did not already know, say so on the call and we will not ask you for anything.</p>
+      <p class="fineprint">Ticking a box connects nothing today. We show you the public findings first. If you then want the financial impact verified, the connection links open live on the call, read only, while you watch.</p>
     </fieldset>
   </form>
 
@@ -749,6 +760,7 @@
       monthly_jobs: $("jobs").value.trim(),
       crm_in_use: $("crmtool").value.trim(),
       capacity: $("capacity").value,
+      biggest_concern: $("concern").value,
       connect_crm: crm.checked,
       crm_name: crm.checked ? $("crmName").value : "",
       connect_bank: bank.checked,
@@ -781,22 +793,28 @@
         : "We have what we need to start on " + WORDS[payload.checks_unlocked] +
           " checks. The first thing we do is call your line as a customer would, so do not be surprised.";
 
-      /* the steps reflect what THEY chose, not a generic list */
-      var crmSel = $("crmName") ? $("crmName").value : "";
-      var noCrm = (!payload.connect_crm) && (crmSel === "Nothing yet" || crmSel === "A spreadsheet");
+/* the steps reflect what THEY chose, not a generic list */
+      var crmText = ($("crmtool") ? $("crmtool").value : "").toLowerCase();
+      var noCrm = !payload.connect_crm &&
+        (/nothing|none|notebook|paper|spreadsheet|excel|head|memory/.test(crmText) || crmText === "");
+      var rev = payload.revenue_range;
+      var qualified = ["$1M to $2M","$2M to $5M","$5M to $10M","Over $10M","$500k to $1M"].indexOf(rev) !== -1;
       var steps = [];
       steps.push("We run every check you unlocked. That takes a few days, and three of those days include a call to your line.");
-      if (connected){
-        var what = payload.connect_crm && payload.connect_bank ? "your CRM and your bank"
-                 : payload.connect_crm ? "your CRM" : "your bank";
-        steps.push("You get a time to talk. Thirty minutes. Connecting " + what +
-                   " happens live on that call, you watching, read only, and we read it on the spot.");
+      if (qualified){
+        if (connected){
+          var what = payload.connect_crm && payload.connect_bank ? "your CRM and your bank"
+                   : payload.connect_crm ? "your CRM" : "your bank";
+          steps.push("You get a link to book the thirty minute walkthrough. We show the public findings first. If you then want the financial impact verified, connecting " + what + " happens live on that call, read only, while you watch.");
+        } else {
+          steps.push("You get a link to book the thirty minute walkthrough of the findings. If you want the financial impact verified, we can connect your CRM or bank live on that call, read only. Your choice, made then, never required.");
+        }
       } else {
-        steps.push("You get a time to talk. Thirty minutes to walk the findings.");
+        steps.push("The read arrives by email. If it turns up something worth a live walkthrough, the email includes a booking link for a thirty minute call.");
       }
       steps.push("We walk you through what we found, worst first. If something is worth fixing and you want help, we scope that at the end of the same call. If not, the read is still yours.");
       if (noCrm){
-        steps.push("No CRM is common and not a problem. If we end up working together, recording starts on day one with a tracking number in front of your existing line. Nothing ports, nothing changes for your customers, and your first full read lands about thirty days later with its own before and after.");
+        steps.push("No CRM is common and not a problem. If we end up working together, we start a lead to sale scoreboard on day one: every call, booking, estimate, outcome and dollar, tracked for a thirty day observation window until there is enough data for a reliable diagnosis.");
       }
       var ol = $("doneSteps");
       if (ol){ ol.innerHTML = ""; steps.forEach(function(t){ var li=document.createElement("li"); li.textContent=t; ol.appendChild(li); }); }
