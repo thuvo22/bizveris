@@ -280,6 +280,14 @@
     fill:var(--onink);letter-spacing:.01em;
   }
   .dg-sub{font-family:Archivo,sans-serif;font-size:10.5px;fill:var(--onink-2)}
+  .diagram.wide .dg-label{font-size:20px}
+  .diagram.wide .dg-sub{font-size:15px}
+  .diagram.wide .dg-node{stroke-width:2;r:8}
+  .diagram.wide .dg-line{stroke-width:2}
+  .diagram.wide .dg-core-t{font-size:32px}
+  .diagram.tall .dg-label{font-size:17px}
+  .diagram.tall .dg-sub{font-size:13.5px}
+  .diagram.tall .dg-core-t{font-size:27px}
   .dg-node{fill:#22241F;stroke:#3A3D37;stroke-width:1.5}
   .dg-node.live{stroke:var(--yellow)}
   .dg-core{fill:var(--yellow)}
@@ -458,7 +466,7 @@
     .sent .attrib{margin-top:0}
 
     /* convergence: copy left, diagram right */
-    .conv{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+    .conv{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
           column-gap:clamp(40px,5vw,80px);align-items:center}
     .conv > div{grid-column:1}
     .conv .body{grid-column:1;grid-row:2;align-self:start}
