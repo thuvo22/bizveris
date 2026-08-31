@@ -118,12 +118,16 @@
     .hero-vid{margin-left:auto;margin-right:auto}
 
   }
+  /* desktop hero: centered stack, Hormozi-style - restrained headline on top,
+     video centered under it, paragraph and one CTA. Nothing stretched. */
   @media (min-width:900px){
-    .heroSplit{display:flex;align-items:center;gap:clamp(26px,3.2vw,52px)}
-    .heroSplit > .hero-type{flex:1 1 54%;min-width:0;padding-top:0}
-    .heroSplit > .hero-vid{flex:1 1 46%;min-width:0;margin:0;max-width:none}
-    /* the readout overlaps the type by design, but that offset was tuned for a
-       smaller headline; with the fitted type it collides, so clear it here */
+    .hero-type{text-align:center;padding-top:clamp(8px,1.6vh,20px)}
+    .l1{font-size:clamp(2rem,3vw,2.9rem);line-height:.98}
+    .l2{font-size:clamp(2.4rem,3.6vw,3.4rem);line-height:.98;margin-top:.08em}
+    .hero-vid{max-width:min(72%,760px,calc(40svh*1.7778)) !important}
+    .hero-say{text-align:center;max-width:66ch;margin-top:clamp(12px,1.8vh,20px)}
+    .hero-cta{justify-content:center;margin-top:clamp(14px,2.2vh,24px)}
+    .hero-cta .slab{flex:0 1 620px}
     .stamp{max-width:1040px}
   }
   .l1 span,.l2 span{display:block;white-space:nowrap}
@@ -1069,43 +1073,5 @@
 })();
 </script>
 
-<script>
-/* Headline: size each line so it fills the column edge to edge.
-   Measured with a Range, because these spans are display:block and their
-   bounding box is always the container width - measuring the box reports a
-   perfect fit while the text still ends short. */
-(function(){
-  var host = document.querySelector(".hero-type");
-  var lines = document.querySelectorAll(".l1 span, .l2 span");
-  if(!host || !lines.length || !document.createRange) return;
-  function textWidth(el){
-    var r = document.createRange();
-    r.selectNodeContents(el);
-    return r.getBoundingClientRect().width;
-  }
-  function fit(){
-    var w = host.clientWidth;
-    if(!w) return;
-    if(innerWidth < 900){                 // mobile: fixed scale, not stretched
-      Array.prototype.forEach.call(lines, function(el){ el.style.fontSize = ""; });
-      return;
-    }
-    Array.prototype.forEach.call(lines, function(el){
-      el.style.fontSize = "";
-      var base = parseFloat(getComputedStyle(el).fontSize);
-      var nat = textWidth(el);
-      if(nat <= 4) return;
-      var size = base * (w / nat);
-      el.style.fontSize = size + "px";
-      var after = textWidth(el);          // correct the 1% the first pass leaves
-      if(after > 4) el.style.fontSize = (size * (w / after)) + "px";
-    });
-  }
-  fit();
-  addEventListener("resize", fit);
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-  addEventListener("load", fit);
-})();
-</script>
 </body>
 </html>
