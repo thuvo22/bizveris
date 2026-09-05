@@ -302,12 +302,12 @@
 <div class="pad head">
   <p class="kicker">Request an audit</p>
   <h1 class="display" style="margin-top:14px">Tell us what we<br><em>can look at.</em></h1>
-  <p class="lede">The free audit reads what is already public and names <b>at least three verified revenue risks</b> from that alone. It is not a full diagnosis of your business. The full read needs data, and whether we go there is your call, on the call.</p>
+  <p class="lede">The free audit reads what is already public and names <b>at least three verified revenue risks</b> from that alone, ranked, with the evidence and a first move under each. It is not a full diagnosis of your business. The full read needs data, and whether we go there is your call, on the call.</p>
 
   <ol class="arc" aria-label="How the audit works">
-    <li><b>Sixty seconds now.</b> This form. Public information only, nothing to connect, no passwords.</li>
-    <li><b>We go looking.</b> Over a few days we run every check you unlocked, including calling your line the way a customer would.</li>
-    <li><b>One call, thirty minutes.</b> Anything you chose to connect happens live on that call while you watch. Then we walk you through what we found, worst first, with the evidence under each finding.</li>
+    <li><b>Sixty seconds now.</b> This form. Public information only, nothing to connect, no passwords. Then one click in your inbox to confirm it is you; a read this frank only goes to the people who run the business.</li>
+    <li><b>We go looking, the same day.</b> About twenty checks across your phone path, your Google listing, your reviews, your ads, your licensing and your website, delivered as a PDF. The three calls to your line happen over the week, by hand.</li>
+    <li><b>One call, thirty minutes.</b> We walk you through what we found, worst first. Anything you chose to connect happens live on that call while you watch.</li>
   </ol>
 </div>
 
@@ -451,9 +451,10 @@
       <div style="margin-top:24px;max-width:420px">
         <button class="slab" type="submit" id="submitBtn">
           Request the audit
-          <span id="submitSub">Eleven checks. No connection needed.</span>
+          <span id="submitSub">About twenty checks. No connection needed.</span>
         </button>
       </div>
+      <div id="turnstileBox" style="margin:16px 0 0"></div>
       <p class="fineprint">The audit identifies the leak. Fixing it is a separate conversation, scoped and priced only after the diagnosis, and only if you want the help. Some of what we find is yours to fix in an afternoon, and if it is we will say so. If the read does not name at least three verified revenue risks you did not already know, say so on the call and we will not ask you for anything.</p>
     </fieldset>
     <fieldset>
@@ -515,13 +516,13 @@
   <aside class="panel" aria-live="polite">
     <p class="kicker">What this read can cover</p>
     <div class="meter" style="margin-top:12px">
-      <div class="num" id="count">11</div>
-      <div class="of">checks of 30 possible</div>
+      <div class="num" id="count">21</div>
+      <div class="of" id="ofTotal">checks of 39 possible</div>
       <div class="bar"><span id="bar"></span></div>
     </div>
-    <p class="nudge" id="nudge">Connect your CRM and this becomes nineteen.</p>
+    <p class="nudge" id="nudge">Connect your CRM and this becomes twenty nine.</p>
     <div style="position:relative"><ul class="checks" id="checks"></ul><span class="fade-out" id="fadeOut"></span></div>
-    <button type="button" class="more" id="moreBtn">Show all 30 checks</button>
+    <button type="button" class="more" id="moreBtn">Show all 39 checks</button>
   </aside>
 </div>
 
@@ -529,11 +530,11 @@
 <div class="pad done-panel" id="done">
   <p class="kicker">Request received</p>
   <h2 class="display" style="margin-top:14px">Now we go <em style="font-style:normal;color:var(--yellow)">looking.</em></h2>
-  <p class="lede" id="doneLede">We have what we need to start. The first thing we do is call your line as a customer would, so do not be surprised.</p>
+  <p class="lede" id="doneLede">Check your inbox. One click on the email from audit@bizveris.com starts the read; nothing runs until you do.</p>
   <div class="next">
     <p class="kicker">What happens next</p>
     <ol id="doneSteps">
-      <li>We run every check you unlocked. That takes a few days, and three of those days include a call to your line.</li>
+      <li>Click the confirmation in your inbox. Nothing runs until you do.</li>
       <li id="stepCall">You get a time to talk. Thirty minutes, and we do any setup live while you watch.</li>
       <li>We walk you through what we found, worst first. If something is worth fixing and you want help, we scope that at the end of the same call. If not, the read is still yours.</li>
     </ol>
@@ -558,24 +559,33 @@
   var FORM_ENDPOINT  = "https://services.leadconnectorhq.com/hooks/8ouud4VJeoR3laAPx37C/webhook-trigger/72683afd-9b97-4e58-880f-d416ec0d7819";
   var AUDIT_ENDPOINT = "https://bizveris-audit-production.up.railway.app/audit-request";
   var CALENDAR_URL   = "";
+  /* Cloudflare Turnstile site key. Empty = no widget (the service then skips
+     the check too). Paste the key from Cloudflare › Turnstile › bizveris.com. */
+  var TURNSTILE_SITE_KEY = "";
 
   var CHECKS = {
     base: ["Public information", [
-      "Your actual rank at a grid of points across your service area, not one number",
-      "Every service you sell against every town you serve, and where you land in the top twenty",
-      "Who is taking the map spot instead of you, named",
-      "Duplicate or competing Google listings working against each other",
-      "Your star rating and review count, exactly as Google shows them",
-      "How fast reviews actually arrive, measured and tracked between audits",
-      "How fast your site loads, and what it does on a phone",
-      "How many of your pages Google has actually indexed",
-      "Whether your site tells Google, in code, that it is your Google listing",
+      "Where you rank at nine points across your service area, one search at a time, and who takes the spot instead of you",
+      "Every service you sell against every town you claim, measured from each town's centre, top ten or not",
+      "Duplicate or ghost Google listings carrying your name, phone number or website",
+      "Your newest 300 Google reviews, dated: when they stopped, how fast they arrive, this year against last",
+      "What your one to three star reviews have in common, quoted",
+      "Whether you reply to reviews, and how fast",
+      "Whether the review pattern looks like the one Google's filters remove",
+      "Your site on a phone: is the number visible and tappable on the first screen",
+      "Where every get a quote button actually goes, and whether the form sends anywhere",
+      "Any phone link that dials a different number than it shows",
+      "How many phone numbers appear across your own pages, against the one on your listing",
+      "What is measuring your leads: analytics, ad conversion tags, call tracking, or nothing",
+      "Whether you are buying Google ads right now and when they last ran, from Google's own registry",
+      "Whether your Facebook page is running ads, from Meta's own library",
+      "Your listing's hours against what your own site says, and the hours nobody covers",
       "Whether a customer can tell what happens after hours, if you take urgent work, whether it can be financed, and that you cover their town",
-      "Whether your contact form really delivers, tested by us using it",
-      "Three calls placed the way a customer would: ring time, who answered, what they said",
-      "Whether anyone covers evenings and weekends",
-      "Whether a missed call gets a text back, or nothing at all",
-      "The ads you are running right now, pulled from public ad libraries"
+      "What your state requires for your trade, what your site claims, and whether a licence number is shown",
+      "How fast your site loads on a phone, measured twice",
+      "Whether your site tells Google, in code, that it is your Google listing, with the values checked",
+      "Pages Google can find, and menu links that lead nowhere",
+      "Three calls placed the way a customer would: ring time, who answered, what they said, and whether a missed call gets a text back"
     ]],
     crm: ["With your CRM", [
       "How long a new lead waits, across every lead and not just the average",
@@ -608,10 +618,20 @@
     "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen",
     "nineteen","twenty","twenty one","twenty two","twenty three","twenty four","twenty five",
     "twenty six","twenty seven","twenty eight","twenty nine","thirty",
-    "thirty one","thirty two","thirty three","thirty four"];
+    "thirty one","thirty two","thirty three","thirty four","thirty five","thirty six",
+    "thirty seven","thirty eight","thirty nine","forty"];
 
   var $ = function(id){ return document.getElementById(id); };
   var crm = $("crm"), bank = $("bank");
+  if (TURNSTILE_SITE_KEY && $("turnstileBox")){
+    var tsDiv = document.createElement("div");
+    tsDiv.className = "cf-turnstile"; tsDiv.setAttribute("data-sitekey", TURNSTILE_SITE_KEY);
+    tsDiv.setAttribute("data-theme", "dark"); tsDiv.setAttribute("data-size", "normal");
+    $("turnstileBox").appendChild(tsDiv);
+    var tsScript = document.createElement("script");
+    tsScript.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"; tsScript.async = true; tsScript.defer = true;
+    document.head.appendChild(tsScript);
+  }
   var list = $("checks"), countEl = $("count"), barEl = $("bar"), nudgeEl = $("nudge");
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -639,8 +659,14 @@
     };
   }
 
-  var shown = 11;      // animated display value
-  var current = 11;    // truth, updated synchronously in render()
+  var BASE_N = CHECKS.base[1].length;
+  var shown = BASE_N;      // animated display value
+  var current = BASE_N;    // truth, updated synchronously in render()
+  $("count").textContent = BASE_N;
+  if ($("ofTotal")) $("ofTotal").textContent = "checks of " + TOTAL + " possible";
+  if ($("moreBtn")) $("moreBtn").textContent = "Show all " + TOTAL + " checks";
+  if ($("nudge")) $("nudge").textContent = "Connect your CRM and this becomes " + WORDS[BASE_N + CHECKS.crm[1].length] + ".";
+  if ($("submitSub")) $("submitSub").textContent = (WORDS[BASE_N].charAt(0).toUpperCase() + WORDS[BASE_N].slice(1)) + " checks. No connection needed.";
   function animateTo(target){
     if (reduce){ countEl.textContent = target; shown = target; return; }
     var from = shown, t0 = null, dur = 420;
@@ -669,9 +695,9 @@
 
     var msg, done = false;
     if (crm.checked && bank.checked){ msg = "That is everything we can see. Nothing deeper exists."; done = true; }
-    else if (crm.checked){ msg = "Add your bank and this becomes " + WORDS[34] + "."; }
-    else if (bank.checked){ msg = "Add your CRM and this becomes " + WORDS[34] + "."; }
-    else { msg = "Connect your CRM and this becomes " + WORDS[23] + "."; }
+    else if (crm.checked){ msg = "Add your bank and this becomes " + WORDS[TOTAL] + "."; }
+    else if (bank.checked){ msg = "Add your CRM and this becomes " + WORDS[TOTAL] + "."; }
+    else { msg = "Connect your CRM and this becomes " + WORDS[BASE_N + CHECKS.crm[1].length] + "."; }
     nudgeEl.textContent = msg;
     nudgeEl.classList.toggle("done", done);
 
@@ -767,8 +793,13 @@
       call_consent: $("consent").checked,
       checks_unlocked: current,
       tier: crm.checked && bank.checked ? "full" : crm.checked ? "crm" : bank.checked ? "bank" : "public",
+      turnstile_token: (document.querySelector('[name="cf-turnstile-response"]') || {}).value || "",
       page: location.href
     };
+    if (TURNSTILE_SITE_KEY && !payload.turnstile_token){
+      alert("One second, the human check has not finished. Please try again.");
+      return;
+    }
 
     // local backstop so a request is never lost while the endpoint is unset
     try {
@@ -800,7 +831,8 @@
       var rev = payload.revenue_range;
       var qualified = ["$1M to $2M","$2M to $5M","$5M to $10M","Over $10M","$500k to $1M"].indexOf(rev) !== -1;
       var steps = [];
-      steps.push("We run every check you unlocked. That takes a few days, and three of those days include a call to your line.");
+      steps.push("Click the confirmation in your inbox, from audit@bizveris.com. If your email is not on your company's own domain we also confirm you run the business before anything runs, usually within one business day.");
+      steps.push("The public read lands in your inbox as a PDF, the same day: the three to five things most likely costing you customers, ranked, with the evidence and a first move under each, then every check grouped by phone, listing, reviews, ads, licensing and website. The three calls to your line follow over the week.");
       if (qualified){
         if (connected){
           var what = payload.connect_crm && payload.connect_bank ? "your CRM and your bank"
