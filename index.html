@@ -270,7 +270,11 @@
     </div>
 
     <div class="vsl in d4" id="demo">
-      <video controls playsinline preload="metadata" poster="bizveris-ops-vsl-poster.jpg" src="bizveris-ops-vsl.mp4" aria-label="How Bizveris turns office busywork into AI workflows, 2 minutes 38 seconds"></video>
+      <video controls playsinline preload="metadata" poster="bizveris-ops-vsl-poster.jpg" aria-label="How Bizveris turns office busywork into AI workflows, 2 minutes 38 seconds">
+        <!-- iPhone and Safari play the streaming version; other browsers skip it and use the mp4 -->
+        <source src="vsl/index.m3u8" type="application/vnd.apple.mpegurl">
+        <source src="bizveris-ops-vsl.mp4" type="video/mp4">
+      </video>
     </div>
 
     <ul class="benefits in d4">
